@@ -3,7 +3,6 @@ import 'package:chat_app/core/routing/routing.transition.delegate.dart';
 import 'package:chat_app/core/routing/routing.transition.enum.dart';
 import 'package:chat_app/features/presentation/pages/login.screen.dart';
 import 'package:chat_app/features/presentation/pages/sign_up/sign_up.birthday.screen.dart';
-import 'package:chat_app/features/presentation/pages/sign_up/sign_up.credentials.screen.dart';
 import 'package:chat_app/features/presentation/pages/sign_up/sign_up.name.screen.dart';
 import 'package:chat_app/features/presentation/pages/sign_up/sign_up.shell.dart';
 import 'package:chat_app/features/presentation/pages/splash.screen.dart';

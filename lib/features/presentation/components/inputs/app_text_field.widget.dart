@@ -45,10 +45,12 @@ class AppTextField extends StatelessWidget {
           obscureText: type == InputType.password,
           keyboardType: type.type,
           inputFormatters: type.formatter,
+          onTapOutside: (_) => FocusManager.instance.primaryFocus!.unfocus(),
           decoration: InputDecoration(
             hintText: hintText,
           ),
           onChanged: onChanged,
+          autovalidateMode: .onUserInteraction,
           validator: validator != null
             ? (value) => validator!.run(value)
             : null,
