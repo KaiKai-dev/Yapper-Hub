@@ -57,7 +57,7 @@ class SignupBirthdayScreen extends ConsumerWidget {
                 DropdownMenuEntry(value: 'Editor', label: 'Editorial Staff'),
               ],
               onSelected: (value) => print(value),
-            )
+            ),
           ],
         ),
       ),

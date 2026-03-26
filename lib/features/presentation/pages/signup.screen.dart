@@ -19,14 +19,22 @@ class SignupScreen extends ConsumerStatefulWidget {
   ConsumerState<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends ConsumerState<SignupScreen> {
+class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerProviderStateMixin {
+  late final TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 3, vsync: this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final signupData = ref.watch(signupNotifier);
 
-    final CarouselSliderController carouselController = CarouselSliderController();
+    
 
     // carouselController.
 
@@ -49,7 +57,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       appBar: AppBar(
         centerTitle: false,
         title: Text(
-          "Onboarding ${signupData.currentPage}",
+          "Onboarding",
           style: theme.textTheme.titleSmall,
         ),
         leading: IconButton(
@@ -60,35 +68,19 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               context.pop();
             } else {
               log("previousPage");
+              tabController.animateTo(signupData.currentPage - 1);
               ref.read(signupNotifier.notifier).previousPage();
-              carouselController.previousPage();
             }
           },
           icon: Icon(Icons.chevron_left, size: 32),
         ),
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Padding(
-            padding: EdgeInsets.all(20),
-            child: CarouselSlider.builder(
-              itemCount: screens.length,
-              carouselController: carouselController, 
-              // disableGesture: true,
-              itemBuilder: (context, index, _){
-                return screens[index];
-              }, 
-              options: CarouselOptions(
-                scrollPhysics: NeverScrollableScrollPhysics(),
-                pageSnapping: true,
-                viewportFraction: 1,
-                height: constraints.maxHeight,
-                initialPage: 0,
-                enableInfiniteScroll: false,
-              )
-            )
-          );
-        }
+      body: TabBarView(
+        controller: tabController,
+        children: screens.map((screen) => Padding(
+          padding: EdgeInsets.all(20),
+          child: screen,
+        )).toList()
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
@@ -99,21 +91,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           children: [
             AppButton.primary(
               onPressed: () {
+                tabController.animateTo(signupData.currentPage + 1);
                 ref.read(signupNotifier.notifier).nextPage();
-                  carouselController.nextPage();
-                  log("${signupData.currentPage}");
+                log("${signupData.currentPage}");
               },
-              
-              // ref.read(signupNotifier.notifier)
-              //   .validatePage(
-              //     currentPage: currentPage,
-              //     ifValid: () {
-              //       log("Form Valid ");
-              //       if(currentPage != signupPages.length - 1) context.pushNamed(signupPages[currentPage + 1].pageName!);
-        
-              //       // Todo add submit function
-              //     }
-              //   ),
               title: "Next",
             ),
             RichText(
