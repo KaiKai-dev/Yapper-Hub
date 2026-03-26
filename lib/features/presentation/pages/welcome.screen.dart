@@ -72,7 +72,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 children: [
                   AppButton.neutral(
                     onPressed: () {
-                      context.pushNamed(AppScreens.signupName.pageName!);
+                      context.pushNamed(AppScreens.signUp.pageName!);
                     },
                     title: "Create an Account",
                   ),

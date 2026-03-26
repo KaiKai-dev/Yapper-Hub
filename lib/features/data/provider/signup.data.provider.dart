@@ -35,6 +35,14 @@ class SignupNotifier extends Notifier<SignupDataModel> {
     }
   }
 
+  void nextPage() {
+    state = state.copyWith(currentPage: state.currentPage + 1);
+  }
+
+  void previousPage() {
+    state = state.copyWith(currentPage: state.currentPage - 1);
+  }
+
   bool isPageFilledUp(int page) {
     return switch (page) {
       0 => [state.firstname, state.lastname].every((item) => item!.value.text != ""),

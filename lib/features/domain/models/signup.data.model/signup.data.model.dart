@@ -8,6 +8,7 @@ part "signup.data.model.freezed.dart";
 @freezed
 abstract class SignupDataModel with _$SignupDataModel {
   const factory SignupDataModel({
+    required int currentPage,
     TextEditingController? firstname,
     TextEditingController? lastname,
     DateDataModel? birthdate,
@@ -20,11 +21,12 @@ abstract class SignupDataModel with _$SignupDataModel {
   }) = _SignupDataModel;
 
   factory SignupDataModel.initial() => SignupDataModel(
+    currentPage: 0,
     firstname: TextEditingController(),
     lastname: TextEditingController(),
     email: TextEditingController(),
     password: TextEditingController(),
-
+    
     nameFormKey: GlobalKey<FormState>(),
     birthdayFormKey: GlobalKey<FormState>(),
     credentialsFormKey: GlobalKey<FormState>(),

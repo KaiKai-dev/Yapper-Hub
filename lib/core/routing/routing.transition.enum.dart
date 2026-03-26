@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 enum RouteTransition {
-  up, down, left , right;
+  fromUp, fromDown, fromLeft , fromRight;
 
   Offset get start => switch(this){
-    up => Offset(0,1), 
-    down => Offset(0, -1),
-    left => Offset(-1, 0),
-    right => Offset(1, 0)
+    fromUp => Offset(0,1), 
+    fromDown => Offset(0, -1),
+    fromLeft => Offset(-1, 0),
+    fromRight => Offset(1, 0)
   };
 }

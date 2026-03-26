@@ -38,8 +38,6 @@ class _SignupShellState extends ConsumerState<SignupShell> {
       AppScreens.signupCredentials,
     ];
 
-    
-
     final currentPage = signupPages.indexWhere(
       (element) => widget.state.topRoute?.name == element.pageName,
     );
