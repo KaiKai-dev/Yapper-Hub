@@ -1,13 +1,11 @@
 import 'dart:developer';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/data/provider/signup.data.provider.dart';
 import 'package:chat_app/features/domain/extra_styles/hyperlink.dart';
 import 'package:chat_app/features/presentation/components/app_button.widget.dart';
-import 'package:chat_app/features/presentation/pages/sign_up/sign_up.birthday.screen.dart';
-import 'package:chat_app/features/presentation/pages/sign_up/sign_up.credentials.screen.dart';
-import 'package:chat_app/features/presentation/pages/sign_up/sign_up.name.screen.dart';
+import 'package:chat_app/features/presentation/screens/sign_up/sign_up.birthday.screen.dart';
+import 'package:chat_app/features/presentation/screens/sign_up/sign_up.credentials.screen.dart';
+import 'package:chat_app/features/presentation/screens/sign_up/sign_up.name.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -31,12 +29,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final signupData = ref.watch(signupNotifier);
-
-    
-
-    // carouselController.
+    final signupData = ref.watch(signupProvider);
 
     final screens = [
       SignupNameScreen(),
@@ -44,32 +37,25 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
       SignupCredentialScreen(),
     ];
 
-    // final signupPages = [
-    //   AppScreens.signupName,
-    //   AppScreens.signupBirthday,
-    //   AppScreens.signupCredentials,
-    // ];
-
-    // final currentPage = signupPages.indexWhere(
-    //   (element) => widget.state.topRoute?.name == element.pageName,
-    // );
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: Text(
-          "Onboarding",
+          signupData.currentPage == 0 
+            ? "Exit"
+            : "Go Back",
           style: theme.textTheme.titleSmall,
         ),
         leading: IconButton(
           onPressed: () {
             if(signupData.currentPage == 0){
               log("message");
-              ref.invalidate(signupNotifier);
+              ref.invalidate(signupProvider);
               context.pop();
             } else {
               log("previousPage");
               tabController.animateTo(signupData.currentPage - 1);
-              ref.read(signupNotifier.notifier).previousPage();
+              ref.read(signupProvider.notifier).previousPage();
             }
           },
           icon: Icon(Icons.chevron_left, size: 32),
@@ -91,9 +77,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
           children: [
             AppButton.primary(
               onPressed: () {
-                tabController.animateTo(signupData.currentPage + 1);
-                ref.read(signupNotifier.notifier).nextPage();
-                log("${signupData.currentPage}");
+                ref.read(signupProvider.notifier)
+                .validatePage(
+                  ifValid: () {
+                    tabController.animateTo(signupData.currentPage + 1);
+                    ref.read(signupProvider.notifier).nextPage();
+                    log("${signupData.currentPage}");
+                    // Todo add submit function
+                  }
+                );
               },
               title: "Next",
             ),

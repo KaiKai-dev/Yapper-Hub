@@ -17,11 +17,11 @@ class _SignupNameScreenState extends ConsumerState<SignupNameScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final signupProvider = ref.watch(signupNotifier);
+    final provider = ref.watch(signupProvider);
 
     return SingleChildScrollView(
       child: Form(
-        key: signupProvider.nameFormKey,
+        key: provider.nameFormKey,
         child: 
         
         Container(
@@ -30,13 +30,6 @@ class _SignupNameScreenState extends ConsumerState<SignupNameScreen> {
             mainAxisSize: .max,
             crossAxisAlignment: .start,
             children: [
-              // Text(
-              //   "Onboarding * Step 1",
-              //   style: theme.textTheme.labelSmall!.copyWith(
-              //     color: theme.colorScheme.primary,
-              //     fontWeight: .bold,
-              //   ),
-              // ),
               Gap(height: 16),
               Text("What is your name?", style: theme.textTheme.displaySmall),
               Gap(height: 8),
@@ -49,14 +42,14 @@ class _SignupNameScreenState extends ConsumerState<SignupNameScreen> {
               // INPUTS
               AppTextField(
                 label: "FIRST NAME",
-                controller: signupProvider.firstname,
+                controller: provider.firstname,
                 validator: Validator.required,
                 hintText: "eg. James",
               ),
               Gap(height: 20),
               AppTextField(
                 label: "LAST NAME",
-                controller: signupProvider.lastname,
+                controller: provider.lastname,
                 validator: Validator.required,
                 hintText: "eg. Yap",
               ),

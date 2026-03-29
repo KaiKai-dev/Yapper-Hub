@@ -7,30 +7,29 @@ class SignupNotifier extends Notifier<SignupDataModel> {
   @override
   SignupDataModel build() => SignupDataModel.initial();
 
-  // void updateNameData({required String firstname, required String lastname}) {
-  //   state = state.copyWith(firstname: firstname, lastname: lastname);
-  // }
-
-  // void updateBirthdate({required DateDataModel birthdate}) {
-  //   state = state.copyWith(birthdate: birthdate);
-  // }
-
-  // void updateCredentials({required String email, required String password}) {
-  //   state = state.copyWith(email: email, password: password);
-  // }
+  void updateBirthdate({
+    String? month,
+    int? year,
+    int? date,
+  }) {
+    state = state.copyWith(birthdate: state.birthdate!.copyWith(
+      date: date,
+      year: year,
+      month: month,
+    ));
+  }
 
   Future<void> validatePage({
-    required int currentPage,
     Function? ifValid,
   }) async {
-    final formKey = switch(currentPage){
+    final formKey = switch(state.currentPage){
       0 => state.nameFormKey,
       1 => state.birthdayFormKey,
       2 => state.credentialsFormKey,
-      _ => throw UnimplementedError("Unknown page $currentPage")
+      _ => throw UnimplementedError("Unknown page ${state.currentPage}")
     };
-
-    if(formKey!.currentState!.validate()) {
+    log("${formKey!.currentState!.validate()}");
+    if(formKey.currentState!.validate()) {
       ifValid!();
     }
   }
@@ -58,6 +57,6 @@ class SignupNotifier extends Notifier<SignupDataModel> {
   }
 }
 
-final signupNotifier = NotifierProvider.autoDispose<SignupNotifier, SignupDataModel>(
+final signupProvider = NotifierProvider.autoDispose<SignupNotifier, SignupDataModel>(
   SignupNotifier.new,
 );

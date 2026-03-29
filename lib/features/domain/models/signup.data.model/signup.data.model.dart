@@ -26,7 +26,7 @@ abstract class SignupDataModel with _$SignupDataModel {
     lastname: TextEditingController(),
     email: TextEditingController(),
     password: TextEditingController(),
-    
+    birthdate: DateDataModel.initial(),
     nameFormKey: GlobalKey<FormState>(),
     birthdayFormKey: GlobalKey<FormState>(),
     credentialsFormKey: GlobalKey<FormState>(),

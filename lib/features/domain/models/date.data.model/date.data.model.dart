@@ -1,3 +1,4 @@
+import 'package:chat_app/features/data/service/datetime.service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'date.data.model.freezed.dart';
@@ -10,5 +11,9 @@ abstract class DateDataModel  with _$DateDataModel{
     int? year,
   }) = _DateDataModel; 
 
-
+  factory DateDataModel.initial() => DateDataModel(
+    month: DatetimeService.instance.months[0],
+    year: 2000,
+    date: 1,
+  );
 }
