@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chat_app/core/theme/color_schemes/dark/dark.dart';
 import 'package:chat_app/features/data/provider/signup.data.provider.dart';
 import 'package:chat_app/features/domain/extra_styles/hyperlink.dart';
 import 'package:chat_app/features/presentation/components/app_button.widget.dart';
@@ -29,7 +30,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final signupData = ref.watch(signupProvider);
+    final provider = ref.watch(signupProvider);
+    final notifier = ref.watch(signupProvider.notifier);
+
 
     final screens = [
       SignupNameScreen(),
@@ -37,79 +40,170 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
       SignupCredentialScreen(),
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(
-          signupData.currentPage == 0 
-            ? "Exit"
-            : "Go Back",
-          style: theme.textTheme.titleSmall,
+    log("Has Changes: ${ref.watch(signupProvider.notifier).hasChanges.toString()}");
+
+    return PopScope(
+      canPop: notifier.hasChanges == false,
+      onPopInvokedWithResult: onPop,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text(
+            provider.currentPage == 0 
+              ? "Exit"
+              : "Go Back",
+            style: theme.textTheme.titleSmall,
+          ),
+          // leading: IconButton(
+          //   onPressed: () => onBack(provider.currentPage),
+          //   icon: Icon(Icons.chevron_left, size: 32),
+          // ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            if(signupData.currentPage == 0){
-              log("message");
-              ref.invalidate(signupProvider);
-              context.pop();
-            } else {
-              log("previousPage");
-              tabController.animateTo(signupData.currentPage - 1);
-              ref.read(signupProvider.notifier).previousPage();
-            }
-          },
-          icon: Icon(Icons.chevron_left, size: 32),
+        body: TabBarView(
+          controller: tabController,
+          children: screens.map((screen) => Padding(
+            padding: EdgeInsets.all(20),
+            child: screen,
+          )).toList()
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: .min,
+            mainAxisAlignment: .end,
+            spacing: 12,
+            children: [
+              ProgressIndicator(
+                length: screens.length, 
+                currentPage: provider.currentPage, 
+                isFilledUp: (page) =>  notifier.isPageFilledUp(page),
+              ),
+              AppButton.primary(
+                onPressed: onNext,
+                title: "Next",
+              ),
+              RichText(
+                textAlign: .center,
+                text: TextSpan(
+                  style: theme.textTheme.labelSmall,
+                  children: [
+                    TextSpan(text: "By proceeding, you agree to our "),
+                    TextSpan(
+                      text: "Terms and service ",
+                      style: hyperlinkStyle(context),
+                    ),
+                    TextSpan(text: "\nand "),
+                    TextSpan(
+                      text: "Privacy Policy",
+                      style: hyperlinkStyle(context),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      body: TabBarView(
-        controller: tabController,
-        children: screens.map((screen) => Padding(
-          padding: EdgeInsets.all(20),
-          child: screen,
-        )).toList()
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: .min,
-          mainAxisAlignment: .end,
-          spacing: 12,
-          children: [
-            AppButton.primary(
-              onPressed: () {
-                ref.read(signupProvider.notifier)
-                .validatePage(
-                  ifValid: () {
-                    tabController.animateTo(signupData.currentPage + 1);
-                    ref.read(signupProvider.notifier).nextPage();
-                    log("${signupData.currentPage}");
-                    // Todo add submit function
-                  }
-                );
-              },
-              title: "Next",
+    );
+  }
+
+
+
+  void onPop(bool didPop, res){
+    if(didPop) return;
+
+    onBack(ref.watch(signupProvider).currentPage);
+  }
+  
+  void onBack(int currentPage) async {
+    if(currentPage > 0) {
+      tabController.animateTo(currentPage - 1);
+      ref.read(signupProvider.notifier).previousPage();
+      return;
+    }
+
+    if((await gotPermissionToPop ?? false) && mounted){
+      ref.invalidate(signupProvider);
+      context.pop();
+    }
+  }
+
+  Future<bool?> get gotPermissionToPop async => 
+    await showDialog<bool>(
+      context: context, 
+      barrierDismissible: false,
+      builder: (context) => AlertDialog.adaptive(
+        title: Text("Are you sure you want to close this page?"),
+        content: Text("Changes will be discarded"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text("Continue"),
+          ),
+        ],
+      )
+    );
+
+
+  void onNext() {
+    final provider = ref.watch(signupProvider);
+    final notifier = ref.read(signupProvider.notifier);
+
+    notifier
+      .validatePage(
+        ifValid: (){
+          tabController.animateTo(provider.currentPage + 1);
+          notifier.nextPage();
+          // Todo add submit function
+        }
+      );
+  }
+}
+
+class ProgressIndicator extends StatelessWidget {
+  final int length, currentPage;
+  final bool Function(int page) isFilledUp;
+  const ProgressIndicator({
+    super.key,
+    required this.length, 
+    required this.currentPage,
+    required this.isFilledUp,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      spacing: 12,
+      children: List.generate(
+        length,
+        (page) => Expanded(
+          flex: currentPage == page ? 10 : 9,
+          child: Container(
+            alignment: .center,
+            padding: EdgeInsets.all(currentPage == page ? 4 : 0) ,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: currentPage == page ? Border.all(
+                color: theme.colorScheme.primary
+              ) : null,
             ),
-            RichText(
-              textAlign: .center,
-              text: TextSpan(
-                style: theme.textTheme.labelSmall,
-                children: [
-                  TextSpan(text: "By proceeding, you agree to our "),
-                  TextSpan(
-                    text: "Terms and service ",
-                    style: hyperlinkStyle(context),
-                  ),
-                  TextSpan(text: "\nand "),
-                  TextSpan(
-                    text: "Privacy Policy",
-                    style: hyperlinkStyle(context),
-                  ),
-                ],
+            child: Container(
+              height: 4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: isFilledUp(page)
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.surfaceDim,
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        )
+      ).toList(),
     );
   }
 }

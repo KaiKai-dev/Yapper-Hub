@@ -64,14 +64,15 @@ class DarkConstants {
     onPrimary: neutral900, 
     secondary: secondary500, 
     onSecondary: neutral900, 
-    tertiary: tertiary500,
+    tertiary: tertiary400,
     onTertiary: neutral900,
     error: error500, 
     onError: error800, 
     
     // Background and Surface mapping
     surface: neutral100,            // The #000000 background
-    onSurface: neutral900,           // High-contrast text
+    onSurface: neutral900, 
+    surfaceDim: neutral500,          // High-contrast text
     surfaceContainer: neutral200,    // The cards/containers
     onSurfaceVariant: neutral900 // Search bar / elevated elements
   );

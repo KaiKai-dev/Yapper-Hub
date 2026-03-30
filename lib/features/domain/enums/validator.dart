@@ -10,6 +10,7 @@ enum Validator {
     String? run(String? value) {
       return switch(this) {
         Validator.required => requiredField(value),
+        Validator.password => validatePassword(value),
 
         // TODO implement other validation types
         _ => requiredField(value)

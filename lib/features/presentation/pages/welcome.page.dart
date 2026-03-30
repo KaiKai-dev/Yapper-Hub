@@ -140,6 +140,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                             ),
                             TextSpan(
                               text: "and "
+                              
                             ),
                             TextSpan(
                               text: "Privacy Policy ",

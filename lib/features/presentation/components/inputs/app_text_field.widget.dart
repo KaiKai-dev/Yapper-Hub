@@ -29,15 +29,12 @@ class AppTextField extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Visibility(
-          visible: label != null,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              label!,
-              style: textTheme.labelMedium!
-                .copyWith(fontWeight: FontWeight.w800),
-            ),
+        if(label != null)Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            label!,
+            style: textTheme.labelMedium!
+              .copyWith(fontWeight: FontWeight.w800),
           ),
         ),
         TextFormField(

@@ -6,7 +6,7 @@ String? requiredField(String? value) {
     return null;
 }
 
-String confirmPassword(String? value, String password, {
+String? confirmPassword(String? value, String password, {
   bool required = false
 }) {
   if(requiredField(value) != null && required){
@@ -18,15 +18,29 @@ String confirmPassword(String? value, String password, {
   return '';
 }
 
-// String validatePassword(String value) {
-//   List<String> messages = [];
+String? validatePassword(String? value) {
+  if(value == "" || value == null) return "This field is required";
 
-//   if(value.length < 8) {
-//     messages.add('at least 8 characters');
-//   } else if (value.length > 15) {
-//     messages.add('not more than 15 charcters');
-//   }
+  List<String> messages = [];
 
-//   if(value.contains(RegExp(source)))
+  if(value!.length < 8) {
+    messages.add('at least 8 characters');
+  } else if (value.length > 15) {
+    messages.add('not more than 15 charcters');
+  } else if(!RegExp(r'[A-Z]').hasMatch(value)) {
+     messages.add('at least one uppercase character');
+  } else if(!RegExp(r'[a-z]').hasMatch(value)) {
+     messages.add('at least one uppercase character');
+  } else if(!RegExp(r'[0-9]').hasMatch(value)) {
+    messages.add('at least one number');
+  } else if(!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)){
+    messages.add('at least one special characters');
+  }
 
-// }
+  // if(value.contains(RegExp(source)))
+  if(messages.isEmpty) return null;
+  
+  messages.add("Password must have:\n");
+  return messages.join('\n');
+
+}

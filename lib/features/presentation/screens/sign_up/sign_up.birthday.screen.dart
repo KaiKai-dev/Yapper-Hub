@@ -1,20 +1,42 @@
 import 'package:chat_app/core/extra_data/months.dart';
 import 'package:chat_app/features/data/provider/signup.data.provider.dart';
 import 'package:chat_app/features/data/service/datetime.service.dart';
+import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
 import 'package:chat_app/features/presentation/components/inputs/app_dropdown.widget.dart';
 import 'package:chat_app/features/presentation/components/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignupBirthdayScreen extends ConsumerWidget {
+class SignupBirthdayScreen extends ConsumerStatefulWidget {
   const SignupBirthdayScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SignupBirthdayScreen> createState() => _SignupBirthdayScreenState();
+}
+
+class _SignupBirthdayScreenState extends ConsumerState<SignupBirthdayScreen> {
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(signupProvider.notifier)
+          .updateBirthdateTo(DateDataModel.initial());
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = ref.watch(signupProvider);
     final notifier = ref.read(signupProvider.notifier);
     
+    if(provider.birthdate == null){
+      return Center(
+        child: CircularProgressIndicator()
+      );
+    }
 
     return Form(
       key: provider.birthdayFormKey,
@@ -45,7 +67,9 @@ class SignupBirthdayScreen extends ConsumerWidget {
                     ),
                   )
                   .toList(),
-              onSelected: (value) => notifier.updateBirthdate(year: value),
+              onSelected: (value) => notifier.updateBirthdateTo(
+                provider.birthdate!.copyWith(year: value)
+              ),
             ),
             Gap(height: 20,),
 
@@ -61,7 +85,9 @@ class SignupBirthdayScreen extends ConsumerWidget {
                     dropdownMenuEntries: months
                         .map((month) => DropdownMenuEntry(value: month, label: month))
                         .toList(),
-                    onSelected: (value) => notifier.updateBirthdate(month: value),
+                    onSelected: (value) => notifier.updateBirthdateTo(
+                      provider.birthdate!.copyWith(month: value)
+                    ),
                   ),
                 ),
 
@@ -79,7 +105,9 @@ class SignupBirthdayScreen extends ConsumerWidget {
                             label: date.toString()
                           )
                         ).toList(),
-                    onSelected: (value) => notifier.updateBirthdate(date: value),
+                    onSelected: (value) => notifier.updateBirthdateTo(
+                      provider.birthdate!.copyWith(date: value)
+                    ),
                   ),
                 ),
               ],
