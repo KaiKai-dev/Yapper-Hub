@@ -1,4 +1,4 @@
-import 'package:chat_app/features/data/functions/validators.dart';
+import 'package:chat_app/core/utils/validators.dart';
 
 enum Validator {
     required,

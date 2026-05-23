@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
-import 'package:chat_app/features/domain/models/signup.data.model/signup.data.model.dart';
+import 'package:chat_app/core/network/http_service.dart';
+import 'package:chat_app/features/auth/domain/models/date.data.model/date.data.model.dart';
+import 'package:chat_app/features/auth/domain/models/signup.data.model/signup.data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,6 +16,7 @@ class SignupNotifier extends Notifier<SignupDataModel> {
 
   Future<void> validatePage({
     Function? ifValid,
+    Function? onSubmit,
   }) async {
     final formKey = switch(state.currentPage){
       0 => state.nameFormKey,
@@ -22,10 +24,15 @@ class SignupNotifier extends Notifier<SignupDataModel> {
       2 => state.credentialsFormKey,
       _ => throw UnimplementedError("Unknown page ${state.currentPage}")
     };
-    log("${formKey!.currentState!.validate()}");
-    if(formKey.currentState!.validate()) {
-      ifValid!();
+    
+    if(!formKey!.currentState!.validate()) return;
+
+    if(state.currentPage < 2) {
+      ifValid!(); 
+      return;
     }
+    log('Logging In');
+    onSubmit!();
   }
 
   void nextPage() {
@@ -36,6 +43,17 @@ class SignupNotifier extends Notifier<SignupDataModel> {
     state = state.copyWith(currentPage: state.currentPage - 1);
   }
 
+  void submit() async {
+    final result = HttpService.post(
+      '/auth/signup',
+      data: SignupDataModel.dummyData(),
+      // data: state.toMap(),
+    );
+  }
+
+  /// UTILITY FUNCTIONS
+  /// 
+  /// 
   bool isPageFilledUp(int page) {
     return switch (page) {
       0 => [
@@ -52,9 +70,7 @@ class SignupNotifier extends Notifier<SignupDataModel> {
 
       /// Add cases in case another page is added
 
-      _ => throw UnimplementedError(
-        "Onboarding step $page is not implemented yet",
-      ),
+      _ => true,
     };
   }
 

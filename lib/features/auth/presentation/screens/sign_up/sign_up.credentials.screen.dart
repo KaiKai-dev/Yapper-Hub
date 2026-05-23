@@ -1,14 +1,14 @@
-import 'package:chat_app/features/data/provider/signup.data.provider.dart';
-import 'package:chat_app/features/domain/enums/validator.dart';
-import 'package:chat_app/features/presentation/components/gap.dart';
-import 'package:chat_app/features/presentation/components/inputs/app_text_field.widget.dart';
+import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/features/auth/domain/enums/validator.dart';
+import 'package:chat_app/core/widgets/gap.dart';
+import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignupCredentialScreen extends ConsumerStatefulWidget {
   const SignupCredentialScreen({super.key});
 
-  static final String pathName = "SignupCredentialScreen";
+  // static final String pathName = "SignupCredentialScreen";
 
   @override
   ConsumerState<SignupCredentialScreen> createState() => _SignupCredentialScreenState();
@@ -52,14 +52,17 @@ class _SignupCredentialScreenState extends ConsumerState<SignupCredentialScreen>
             // INPUTS
             AppTextField(
               controller: provider.email,
-              label: "E-MAIL ADDRESS",
+              label: "EMAIL ADDRESS",
+              hintText: "sample@email.com",
               validator: Validator.required,
             ),
+            Gap(height: 20),
 
-            AppTextField(
+            AppTextField.password(
               controller: provider.password,
               label: "PASSWORD",
-              validator: Validator.password,
+              hintText: "Enter here",
+              suffix: Icon(Icons.visibility, size: 20,),
             )
           ],
         ),

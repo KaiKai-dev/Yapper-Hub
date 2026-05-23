@@ -1,4 +1,4 @@
-import 'package:chat_app/features/domain/enums/app_button_styles.dart';
+import 'package:chat_app/core/widgets/enums/app_button_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget{

@@ -1,9 +1,9 @@
-import 'package:chat_app/core/extra_data/months.dart';
-import 'package:chat_app/features/data/provider/signup.data.provider.dart';
-import 'package:chat_app/features/data/service/datetime.service.dart';
-import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
-import 'package:chat_app/features/presentation/components/inputs/app_dropdown.widget.dart';
-import 'package:chat_app/features/presentation/components/gap.dart';
+import 'package:chat_app/core/constants/months.dart';
+import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/core/services/datetime.service.dart';
+import 'package:chat_app/features/auth/domain/models/date.data.model/date.data.model.dart';
+import 'package:chat_app/core/widgets/inputs/app_dropdown.widget.dart';
+import 'package:chat_app/core/widgets/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +18,10 @@ class _SignupBirthdayScreenState extends ConsumerState<SignupBirthdayScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if(ref.read(signupProvider).birthdate != null) return;
+      
+      await Future.delayed(Durations.extralong4);
       ref
           .read(signupProvider.notifier)
           .updateBirthdateTo(DateDataModel.initial());

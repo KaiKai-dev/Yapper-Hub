@@ -1,12 +1,14 @@
 import 'dart:developer';
 
-import 'package:chat_app/core/theme/color_schemes/dark/dark.dart';
-import 'package:chat_app/features/data/provider/signup.data.provider.dart';
-import 'package:chat_app/features/domain/extra_styles/hyperlink.dart';
-import 'package:chat_app/features/presentation/components/app_button.widget.dart';
-import 'package:chat_app/features/presentation/screens/sign_up/sign_up.birthday.screen.dart';
-import 'package:chat_app/features/presentation/screens/sign_up/sign_up.credentials.screen.dart';
-import 'package:chat_app/features/presentation/screens/sign_up/sign_up.name.screen.dart';
+import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/core/theme/styles/hyperlink.dart';
+import 'package:chat_app/core/widgets/app_button.widget.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.birthday.screen.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.credentials.screen.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.name.screen.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.error.screen.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.processing.screen.dart';
+import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.success.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -18,12 +20,16 @@ class SignupScreen extends ConsumerStatefulWidget {
   ConsumerState<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerProviderStateMixin {
+class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProviderStateMixin {
+  late final TabController parentTabController;
   late final TabController tabController;
+  late final TabController resultTabController;
 
   @override
   void initState() {
+    parentTabController = TabController(length: 2, vsync: this);
     tabController = TabController(length: 3, vsync: this);
+    resultTabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -40,69 +46,101 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
       SignupCredentialScreen(),
     ];
 
+    final resultScreens = [
+      SignUpProcessingScreen(),
+      SignupResultSuccessScreen(),
+      SignupResultErrorScreen(),
+    ];
+
     log("Has Changes: ${ref.watch(signupProvider.notifier).hasChanges.toString()}");
 
     return PopScope(
       canPop: notifier.hasChanges == false,
       onPopInvokedWithResult: onPop,
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: Text(
-            provider.currentPage == 0 
-              ? "Exit"
-              : "Go Back",
-            style: theme.textTheme.titleSmall,
+        appBar: switch(parentTabController.index) {
+          0 => AppBar(
+            centerTitle: false,
+            title: Text(
+              provider.currentPage == 0 
+                ? "Exit"
+                : "Go Back",
+              style: theme.textTheme.titleSmall,
+            ),
           ),
-          // leading: IconButton(
-          //   onPressed: () => onBack(provider.currentPage),
-          //   icon: Icon(Icons.chevron_left, size: 32),
-          // ),
-        ),
+
+
+          _ => null
+        },
         body: TabBarView(
-          controller: tabController,
-          children: screens.map((screen) => Padding(
-            padding: EdgeInsets.all(20),
-            child: screen,
-          )).toList()
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: .min,
-            mainAxisAlignment: .end,
-            spacing: 12,
-            children: [
-              ProgressIndicator(
-                length: screens.length, 
-                currentPage: provider.currentPage, 
-                isFilledUp: (page) =>  notifier.isPageFilledUp(page),
+          controller: parentTabController,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Scaffold(
+              body: TabBarView(
+                controller: tabController,
+                children: screens.map((screen) => SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: screen, 
+                  ),
+                )).toList()
               ),
-              AppButton.primary(
-                onPressed: onNext,
-                title: "Next",
-              ),
-              RichText(
-                textAlign: .center,
-                text: TextSpan(
-                  style: theme.textTheme.labelSmall,
+              bottomNavigationBar: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: .min,
+                  mainAxisAlignment: .end,
+                  spacing: 12,
                   children: [
-                    TextSpan(text: "By proceeding, you agree to our "),
-                    TextSpan(
-                      text: "Terms and service ",
-                      style: hyperlinkStyle(context),
+                    ProgressIndicator(
+                      length: screens.length, 
+                      currentPage: provider.currentPage, 
+                      isFilledUp: (page) => notifier.isPageFilledUp(page),
                     ),
-                    TextSpan(text: "\nand "),
-                    TextSpan(
-                      text: "Privacy Policy",
-                      style: hyperlinkStyle(context),
+                    AppButton.primary(
+                      onPressed: onNext,
+                      title: "Next",
+                    ),
+                    RichText(
+                      textAlign: .center,
+                      text: TextSpan(
+                        style: theme.textTheme.labelSmall,
+                        children: [
+                          TextSpan(text: "By proceeding, you agree to our "),
+                          TextSpan(
+                            text: "Terms and service ",
+                            style: hyperlinkStyle(context),
+                          ),
+                          TextSpan(text: "\nand "),
+                          TextSpan(
+                            text: "Privacy Policy",
+                            style: hyperlinkStyle(context),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Scaffold(
+              body: TabBarView(
+                controller: resultTabController,
+                physics: NeverScrollableScrollPhysics(),
+                children: resultScreens.map(
+                  (tab) => SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: tab,
+                    ),
+                  )
+                ).toList()
+              ),
+            )
+          ],
         ),
+        
       ),
     );
   }
@@ -158,8 +196,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with SingleTickerPr
         ifValid: (){
           tabController.animateTo(provider.currentPage + 1);
           notifier.nextPage();
-          // Todo add submit function
-        }
+        },
+        onSubmit: () => parentTabController.animateTo(1)
       );
   }
 }

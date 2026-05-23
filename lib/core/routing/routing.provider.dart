@@ -1,10 +1,10 @@
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/core/routing/routing.transition.delegate.dart';
 import 'package:chat_app/core/routing/routing.transition.enum.dart';
-import 'package:chat_app/features/presentation/pages/login.page.dart';
-import 'package:chat_app/features/presentation/pages/signup.page.dart';
-import 'package:chat_app/features/presentation/pages/splash.page.dart';
-import 'package:chat_app/features/presentation/pages/welcome.page.dart';
+import 'package:chat_app/features/auth/presentation/pages/login.page.dart';
+import 'package:chat_app/features/auth/presentation/pages/signup.page.dart';
+import 'package:chat_app/features/splash/presentation/pages/splash.page.dart';
+import 'package:chat_app/features/splash/presentation/pages/welcome.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -43,6 +43,8 @@ final routingProvider = StateProvider<GoRouter>((Ref ref) {
           transition: RouteTransition.fromRight,
         )
       ),
+
+      
     ]
   );
 });

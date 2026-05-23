@@ -23,24 +23,31 @@ String? validatePassword(String? value) {
 
   List<String> messages = [];
 
-  if(value!.length < 8) {
+  if(value.length < 8) {
     messages.add('at least 8 characters');
-  } else if (value.length > 15) {
+  } 
+  if (value.length > 15) {
     messages.add('not more than 15 charcters');
-  } else if(!RegExp(r'[A-Z]').hasMatch(value)) {
+  } 
+  if(!RegExp(r'[A-Z]').hasMatch(value)) {
      messages.add('at least one uppercase character');
-  } else if(!RegExp(r'[a-z]').hasMatch(value)) {
+  } 
+  if(!RegExp(r'[a-z]').hasMatch(value)) {
      messages.add('at least one uppercase character');
-  } else if(!RegExp(r'[0-9]').hasMatch(value)) {
+  } 
+  if(!RegExp(r'[0-9]').hasMatch(value)) {
     messages.add('at least one number');
-  } else if(!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)){
+  } 
+  if(!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)){
     messages.add('at least one special characters');
   }
+
+  print(messages);
 
   // if(value.contains(RegExp(source)))
   if(messages.isEmpty) return null;
   
-  messages.add("Password must have:\n");
+  messages = ["Password must have:", ...messages];
   return messages.join('\n');
 
 }
