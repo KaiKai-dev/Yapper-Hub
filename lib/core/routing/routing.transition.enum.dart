@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of routing_library;
 
 enum RouteTransition {
   fromUp, fromDown, fromLeft , fromRight;
