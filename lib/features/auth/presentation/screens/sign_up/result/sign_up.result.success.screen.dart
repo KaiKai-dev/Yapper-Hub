@@ -5,6 +5,17 @@ class SignupResultSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final theme = Theme.of(context);
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: theme.colorScheme.onSurfaceVariant
+            ),
+          )
+        ]
+      ),
+    );
   }
 }

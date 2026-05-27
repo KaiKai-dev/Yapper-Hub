@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:dio/dio.dart';
 
 
@@ -42,6 +45,44 @@ class HttpService {
     }
   } 
 
+  Future<T?> get<T>(
+    String route, {
+      Map<String, dynamic>? headers,
+      Map<String, dynamic>? queries,
+      Map<String, dynamic>? data,
+      String? bearer,
+  }) async {
+    try {
+      final options = Options(
+        headers: _buildHeader(
+          bearerToken: bearer,
+        ),
+      );
+      
+      
+
+      final result = await _client.get(
+        route,
+        queryParameters: queries,
+        data: data,
+        options: options,
+      );
+
+      if(result.statusCode == 200) {
+        return result.data;
+      } else {  
+        throw DioException(requestOptions: RequestOptions(
+          path: route, 
+          data: data, 
+          baseUrl: _client.options.baseUrl
+        ));
+      }
+    } catch (e) {
+      // TODO: add an exception wrapper for all exceptions
+      log(e as String);
+    }
+  }
+
   Map<String, dynamic> _buildHeader({
     Map<String, dynamic>? options,
     String? bearerToken
@@ -58,7 +99,4 @@ class HttpService {
 
     return returnData;
   } 
-
-  
-
 }

@@ -11,9 +11,18 @@ class AuthService {
 
     final response =  await HttpService.instance.post(
       ApiRoutes.signup,
-      
       data: json,
     );
-
+    
   }
+
+  // TODO: add login logic
+  // void login({
+  //   required String email,
+  //   required String password,
+  // }){
+  //   final response = HttpService.instance.get(
+  //     ApitR
+  //   )
+  // }
 }

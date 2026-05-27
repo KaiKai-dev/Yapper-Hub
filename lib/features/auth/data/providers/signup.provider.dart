@@ -15,19 +15,20 @@ class SignupNotifier extends Notifier<SignupDataModel> {
   }
 
   Future<void> validatePage({
+    required int currentPage,
     Function? ifValid,
     Function? onSubmit,
   }) async {
-    final formKey = switch(state.currentPage){
+    final formKey = switch(currentPage){
       0 => state.nameFormKey,
       1 => state.birthdayFormKey,
       2 => state.credentialsFormKey,
-      _ => throw UnimplementedError("Unknown page ${state.currentPage}")
+      _ => throw UnimplementedError("Unknown page $currentPage")
     };
     
     if(!formKey!.currentState!.validate()) return;
 
-    if(state.currentPage < 2) {
+    if(currentPage < 2) {
       ifValid!(); 
       return;
     }
@@ -35,16 +36,16 @@ class SignupNotifier extends Notifier<SignupDataModel> {
     onSubmit!();
   }
 
-  void nextPage() {
-    state = state.copyWith(currentPage: state.currentPage + 1);
-  }
+  // void nextPage() {
+  //   state = state.copyWith(currentPage: state.currentPage + 1);
+  // }
 
-  void previousPage() {
-    state = state.copyWith(currentPage: state.currentPage - 1);
-  }
+  // void previousPage() {
+  //   state = state.copyWith(currentPage: state.currentPage - 1);
+  // }
 
   void submit() async {
-    final result = HttpService.post(
+    final result = HttpService.instance.post(
       '/auth/signup',
       data: SignupDataModel.dummyData(),
       // data: state.toMap(),

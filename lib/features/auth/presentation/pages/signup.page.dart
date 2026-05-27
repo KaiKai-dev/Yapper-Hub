@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:chat_app/core/routing/routing.library.dart';
+import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
@@ -27,9 +29,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
 
   @override
   void initState() {
-    parentTabController = TabController(length: 2, vsync: this);
     tabController = TabController(length: 3, vsync: this);
-    resultTabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -62,7 +62,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
           0 => AppBar(
             centerTitle: false,
             title: Text(
-              provider.currentPage == 0 
+              tabController.index == 0
                 ? "Exit"
                 : "Go Back",
               style: theme.textTheme.titleSmall,
@@ -73,74 +73,51 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
           _ => null
         },
         body: TabBarView(
-          controller: parentTabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            Scaffold(
-              body: TabBarView(
-                controller: tabController,
-                children: screens.map((screen) => SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: screen, 
-                  ),
-                )).toList()
+          controller: tabController,
+          children: screens.map((screen) => SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: screen, 
+            ),
+          )).toList()
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: .min,
+            mainAxisAlignment: .end,
+            spacing: 12,
+            children: [
+              ProgressIndicator(
+                length: screens.length, 
+                currentPage: tabController.index, 
+                isFilledUp: (page) => notifier.isPageFilledUp(page),
               ),
-              bottomNavigationBar: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: .min,
-                  mainAxisAlignment: .end,
-                  spacing: 12,
+              AppButton.primary(
+                onPressed: onNext,
+                title: "Next",
+              ),
+              RichText(
+                textAlign: .center,
+                text: TextSpan(
+                  style: theme.textTheme.labelSmall,
                   children: [
-                    ProgressIndicator(
-                      length: screens.length, 
-                      currentPage: provider.currentPage, 
-                      isFilledUp: (page) => notifier.isPageFilledUp(page),
+                    TextSpan(text: "By proceeding, you agree to our "),
+                    TextSpan(
+                      text: "Terms and service ",
+                      style: hyperlinkStyle(context),
                     ),
-                    AppButton.primary(
-                      onPressed: onNext,
-                      title: "Next",
-                    ),
-                    RichText(
-                      textAlign: .center,
-                      text: TextSpan(
-                        style: theme.textTheme.labelSmall,
-                        children: [
-                          TextSpan(text: "By proceeding, you agree to our "),
-                          TextSpan(
-                            text: "Terms and service ",
-                            style: hyperlinkStyle(context),
-                          ),
-                          TextSpan(text: "\nand "),
-                          TextSpan(
-                            text: "Privacy Policy",
-                            style: hyperlinkStyle(context),
-                          ),
-                        ],
-                      ),
+                    TextSpan(text: "\nand "),
+                    TextSpan(
+                      text: "Privacy Policy",
+                      style: hyperlinkStyle(context),
                     ),
                   ],
                 ),
               ),
-            ),
-            Scaffold(
-              body: TabBarView(
-                controller: resultTabController,
-                physics: NeverScrollableScrollPhysics(),
-                children: resultScreens.map(
-                  (tab) => SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: tab,
-                    ),
-                  )
-                ).toList()
-              ),
-            )
-          ],
+            ],
+          ),
         ),
-        
       ),
     );
   }
@@ -150,13 +127,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
   void onPop(bool didPop, res){
     if(didPop) return;
 
-    onBack(ref.watch(signupProvider).currentPage);
+    onBack(tabController.index);
   }
   
   void onBack(int currentPage) async {
     if(currentPage > 0) {
       tabController.animateTo(currentPage - 1);
-      ref.read(signupProvider.notifier).previousPage();
       return;
     }
 
@@ -188,16 +164,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
 
 
   void onNext() {
-    final provider = ref.watch(signupProvider);
     final notifier = ref.read(signupProvider.notifier);
 
     notifier
       .validatePage(
-        ifValid: (){
-          tabController.animateTo(provider.currentPage + 1);
-          notifier.nextPage();
-        },
-        onSubmit: () => parentTabController.animateTo(1)
+        currentPage: tabController.index,
+        ifValid: () => tabController.animateTo(tabController.index + 1),
+        onSubmit: () => RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name),
       );
   }
 }

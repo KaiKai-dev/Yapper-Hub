@@ -12,7 +12,6 @@ abstract class SignupDataModel with _$SignupDataModel {
   const SignupDataModel._();
   
   factory SignupDataModel({
-    required int currentPage,
     TextEditingController? firstname,
     TextEditingController? lastname,
     DateDataModel? birthdate,
@@ -25,7 +24,6 @@ abstract class SignupDataModel with _$SignupDataModel {
   }) = _SignupDataModel;
 
   factory SignupDataModel.initial() => SignupDataModel(
-    currentPage: 0,
     firstname: TextEditingController(),
     lastname: TextEditingController(),
     email: TextEditingController(),

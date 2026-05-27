@@ -1,3 +1,7 @@
+import 'package:chat_app/core/network/api_endpoints.dart';
+import 'package:chat_app/core/network/http_service.dart';
+import 'package:chat_app/core/routing/routing.library.dart';
+import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,9 +17,21 @@ class _SignUpProcessingScreenState extends ConsumerState<SignUpProcessingScreen>
 
   @override
   void initState() {
+    signup();
+    super.initState();
+  }
+
+  void signup() async {
     final provider = ref.read(signupProvider);
 
-    super.initState();
+    final result = await HttpService.instance.post(
+      ApiRoutes.signup,
+      data: provider.toMap() 
+    );
+
+    if(result != null && result['status'] == 'success'){
+      RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name);
+    }
   }
 
   @override
