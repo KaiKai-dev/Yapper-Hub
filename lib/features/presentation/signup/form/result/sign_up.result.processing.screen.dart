@@ -17,8 +17,8 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
 
   @override
   void initState() {
-    signup();
     super.initState();
+    signup();
   }
 
   void signup() async {
@@ -31,7 +31,10 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
 
     if(result != null && result['status'] == 'success'){
       RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name);
-    }
+      return;
+    } 
+
+    RoutingService.instance.router.pushReplacementNamed(AppScreens.signupError.name);
   }
 
   @override
