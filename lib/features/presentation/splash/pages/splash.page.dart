@@ -1,5 +1,6 @@
 
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
+import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -47,6 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initApp() async {
     await Future.delayed(Duration(seconds: 5));
-    if(mounted) context.pushNamed(AppScreens.welcome.pageName!);
+    if(mounted) RoutingService.instance.pushNamed(.welcome);
   }
 }

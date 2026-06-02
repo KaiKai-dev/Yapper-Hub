@@ -1,7 +1,7 @@
 import 'package:chat_app/core/constants/months.dart';
-import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/core/services/datetime.service.dart';
-import 'package:chat_app/features/auth/domain/models/date.data.model/date.data.model.dart';
+import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
 import 'package:chat_app/core/widgets/inputs/app_dropdown.widget.dart';
 import 'package:chat_app/core/widgets/gap.dart';
 import 'package:flutter/material.dart';

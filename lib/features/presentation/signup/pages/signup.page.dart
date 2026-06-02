@@ -1,16 +1,16 @@
 import 'dart:developer';
 
-import 'package:chat_app/core/routing/routing.library.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
-import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.birthday.screen.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.credentials.screen.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/sign_up.name.screen.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.error.screen.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.processing.screen.dart';
-import 'package:chat_app/features/auth/presentation/screens/sign_up/result/sign_up.result.success.screen.dart';
+import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/features/presentation/signup/form/sign_up.birthday.screen.dart';
+import 'package:chat_app/features/presentation/signup/form/sign_up.credentials.screen.dart';
+import 'package:chat_app/features/presentation/signup/form/sign_up.name.screen.dart';
+import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.error.screen.dart';
+import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.processing.screen.dart';
+import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.success.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,13 +23,14 @@ class SignupScreen extends ConsumerStatefulWidget {
 }
 
 class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProviderStateMixin {
-  late final TabController parentTabController;
+  // late final TabController parentTabController;
   late final TabController tabController;
-  late final TabController resultTabController;
+  // late final TabController resultTabController;
 
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -46,32 +47,21 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
       SignupCredentialScreen(),
     ];
 
-    final resultScreens = [
-      SignUpProcessingScreen(),
-      SignupResultSuccessScreen(),
-      SignupResultErrorScreen(),
-    ];
-
     log("Has Changes: ${ref.watch(signupProvider.notifier).hasChanges.toString()}");
 
     return PopScope(
       canPop: notifier.hasChanges == false,
       onPopInvokedWithResult: onPop,
       child: Scaffold(
-        appBar: switch(parentTabController.index) {
-          0 => AppBar(
-            centerTitle: false,
-            title: Text(
-              tabController.index == 0
-                ? "Exit"
-                : "Go Back",
-              style: theme.textTheme.titleSmall,
-            ),
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text(
+            tabController.index == 0
+              ? "Exit"
+              : "Go Back",
+            style: theme.textTheme.titleSmall,
           ),
-
-
-          _ => null
-        },
+        ),
         body: TabBarView(
           controller: tabController,
           children: screens.map((screen) => SingleChildScrollView(
@@ -136,9 +126,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
       return;
     }
 
-    if((await gotPermissionToPop ?? false) && mounted){
+    if((await gotPermissionToPop ?? false)){
       ref.invalidate(signupProvider);
-      context.pop();
+      if(mounted) context.pop();
     }
   }
 

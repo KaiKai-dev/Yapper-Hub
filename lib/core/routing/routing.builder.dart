@@ -1,10 +1,10 @@
 part of routing_library;
 
-class RoutingBuilder extends GoRoute {
+class AppRoute extends GoRoute {
   final AppScreens screen;
   final Widget child;
 
-  RoutingBuilder({
+  AppRoute({
     required this.screen,
     required this.child,
     List<RouteBase>? routes,
@@ -15,7 +15,7 @@ class RoutingBuilder extends GoRoute {
           builder: (_, _) => child,
         );
 
-  RoutingBuilder.withTransition({
+  AppRoute.withTransition({
     required this.screen,
     required this.child,
     List<RouteBase>? routes,

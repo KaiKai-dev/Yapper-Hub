@@ -1,5 +1,5 @@
 import 'package:chat_app/core/widgets/enums/input_type.dart';
-import 'package:chat_app/features/auth/domain/enums/validator.dart';
+import 'package:chat_app/features/domain/enums/validator.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatefulWidget {

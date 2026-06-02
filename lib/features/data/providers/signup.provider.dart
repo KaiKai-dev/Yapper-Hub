@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:chat_app/core/network/http_service.dart';
-import 'package:chat_app/features/auth/domain/models/date.data.model/date.data.model.dart';
-import 'package:chat_app/features/auth/domain/models/signup.data.model/signup.data.model.dart';
+import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
+import 'package:chat_app/features/domain/models/signup.data.model/signup.data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

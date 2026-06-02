@@ -1,6 +1,6 @@
 
 import 'package:chat_app/core/constants/months.dart';
-import 'package:chat_app/features/auth/domain/models/date.data.model/date.data.model.dart';
+import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';

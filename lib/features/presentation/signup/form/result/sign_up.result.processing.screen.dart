@@ -1,19 +1,19 @@
 import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:chat_app/core/network/http_service.dart';
-import 'package:chat_app/core/routing/routing.library.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
-import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
+import 'package:chat_app/features/data/providers/signup.provider.dart';
+import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignUpProcessingScreen extends ConsumerStatefulWidget {
-  const SignUpProcessingScreen({super.key});
+class SignupResultProcessingScreen extends ConsumerStatefulWidget {
+  const SignupResultProcessingScreen({super.key});
 
   @override
-  ConsumerState<SignUpProcessingScreen> createState() => _SignUpProcessingScreenState();
+  ConsumerState<SignupResultProcessingScreen> createState() => _SignupResultProcessingScreenState();
 }
 
-class _SignUpProcessingScreenState extends ConsumerState<SignUpProcessingScreen> {
+class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProcessingScreen> {
 
   @override
   void initState() {

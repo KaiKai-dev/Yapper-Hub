@@ -1,5 +1,5 @@
-import 'package:chat_app/features/auth/data/providers/signup.provider.dart';
-import 'package:chat_app/features/auth/domain/enums/validator.dart';
+import 'package:chat_app/features/data/providers/signup.provider.dart';
+import 'package:chat_app/features/domain/enums/validator.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:chat_app/core/widgets/gap.dart';
 import 'package:flutter/material.dart';
