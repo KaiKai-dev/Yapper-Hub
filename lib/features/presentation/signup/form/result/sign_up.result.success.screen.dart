@@ -3,6 +3,7 @@ import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:chat_app/features/presentation/signup/widgets/yapper_features_card.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SignupResultSuccessScreen extends StatelessWidget {
   const SignupResultSuccessScreen({super.key});
@@ -30,7 +31,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(headerBadgeSize / 2),
                     border: Border.all(
                       width: .15,
-                      color: theme.colorScheme.onPrimaryContainer,
+                      color: theme.colorScheme.primary,
                     ),
                     boxShadow: [
                       BoxShadow(
@@ -56,11 +57,13 @@ class SignupResultSuccessScreen extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 16),
                 Text(
                   'Your account has been successfully created. Ready to join the conversation?',
                   textAlign: .center,
-                  style: theme.textTheme.titleMedium,
+                  style: theme.textTheme.titleMedium!.copyWith(
+                    fontSize: 16
+                  ),
                 ),
                 SizedBox(height: 24),
 
@@ -68,7 +71,10 @@ class SignupResultSuccessScreen extends StatelessWidget {
                   title: 'AI Assistant',
                   message:
                       'Yapper AI is ready to help you summarize long yap threads',
-                  icon: Icon(Icons.star, color: Colors.purple.shade200),
+                  icon: SvgPicture.asset(
+                    'assets/app_icons/googlegemini.svg',
+                    colorFilter: ColorFilter.mode(Colors.pink.shade100, BlendMode.srcIn),
+                  ),
                 ),
                 SizedBox(height: 16),
                 YapperFeaturesCard(

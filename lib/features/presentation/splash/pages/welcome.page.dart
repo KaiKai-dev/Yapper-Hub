@@ -61,7 +61,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     ],
                   ),
                   AppButton(
-                    onPressed: () => RoutingService.instance.pushNamed(.signupError),
+                    onPressed: () => RoutingService.instance.pushNamed(.signupSuccess),
                     title: "Login",
                   ),
                 ],

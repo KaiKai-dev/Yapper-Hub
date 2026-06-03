@@ -10,7 +10,7 @@ class SignupResultErrorScreen extends StatefulWidget {
 
 class _SignupResultErrorScreenState extends State<SignupResultErrorScreen> {
   bool trying = false;
-  
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -20,7 +20,10 @@ class _SignupResultErrorScreenState extends State<SignupResultErrorScreen> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(
+            horizontal: 16, 
+            vertical: 32
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
