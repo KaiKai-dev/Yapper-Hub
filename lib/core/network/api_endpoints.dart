@@ -1,3 +1,3 @@
 class ApiRoutes {
-  static const signup = 'auth/signup';
+  static const signup = '/auth/signup';
 }

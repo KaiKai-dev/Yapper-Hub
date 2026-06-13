@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
@@ -23,11 +25,14 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
 
   void signup() async {
     final provider = ref.read(signupProvider);
+    final data = provider.toMap();
 
     final result = await HttpService.instance.post(
       ApiRoutes.signup,
-      data: provider.toMap() 
+      data: data
     );
+
+    log(data.toString());
 
     if(result != null && result['status'] == 'success'){
       RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name);
@@ -46,10 +51,9 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
       child: Center(
         child: Column(
           mainAxisAlignment: .center,
-          spacing: 24,
+          spacing: 80,
           children: [
             Expanded(
-              flex: 3,
               child: Align(
                 alignment: .bottomCenter,
                 child: CircularProgressIndicator(
@@ -62,7 +66,6 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
               ),
             ),
             Expanded(
-              flex: 4,
               child: Column(
                 spacing: 12,
                 children: [

@@ -8,9 +8,9 @@ import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.birthday.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.credentials.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.name.screen.dart';
-import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.error.screen.dart';
-import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.processing.screen.dart';
-import 'package:chat_app/features/presentation/signup/form/result/sign_up.result.success.screen.dart';
+import 'package:chat_app/features/presentation/signup/result/sign_up.result.error.screen.dart';
+import 'package:chat_app/features/presentation/signup/result/sign_up.result.processing.screen.dart';
+import 'package:chat_app/features/presentation/signup/result/sign_up.result.success.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -160,7 +160,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
       .validatePage(
         currentPage: tabController.index,
         ifValid: () => tabController.animateTo(tabController.index + 1),
-        onSubmit: () => RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name),
+        onSubmit: () => RoutingService.instance.pushNamed(AppScreens.signupProcessing),
       );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/providers/theme.provider.dart';
 import 'package:chat_app/core/routing/routing.library.dart';
 import 'package:chat_app/features/data/services/routing.service.dart';
@@ -8,6 +9,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   RoutingService.instance.init();
+  HttpService.instance.init();
 
   runApp(
     ProviderScope(

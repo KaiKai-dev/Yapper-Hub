@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:chat_app/core/network/api_endpoints.dart';
+import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/core/providers/theme.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/features/domain/models/signup.data.model/signup.data.model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,7 +66,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     ],
                   ),
                   AppButton(
-                    onPressed: () => RoutingService.instance.pushNamed(.signupSuccess),
+                    onPressed: () => RoutingService.instance.pushNamed(.signupProcessing),
                     title: "Login",
                   ),
                 ],
@@ -71,6 +76,10 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               child: Column(
                 crossAxisAlignment: .stretch,
                 children: [
+                  AppButton.neutral(
+                    onPressed: onTest,
+                    title: "Test",
+                  ),
                   AppButton.neutral(
                     onPressed: () {
                       RoutingService.instance.pushNamed(.signup);
@@ -159,5 +168,16 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
         ),
       ),
     );
+  }
+
+  onTest() async {
+    final SignupDataModel dummy = SignupDataModel.dummy();
+
+    final result = await HttpService.instance.post(
+      ApiRoutes.signup,
+      data: dummy.toMap()
+    );
+
+    log((result as Map<String, dynamic>)['data'].toString());
   }
 }

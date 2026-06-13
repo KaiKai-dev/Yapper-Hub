@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chat_app/core/env/env.dart';
 import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:dio/dio.dart';
 
@@ -12,7 +13,7 @@ class HttpService {
 
   void init() { 
     final baseOptions = BaseOptions(
-      baseUrl: "http://192.168.1.220/",
+      baseUrl: Env.apiUrl,
       connectTimeout: Duration(seconds: 20),
         
     );
@@ -40,7 +41,8 @@ class HttpService {
     } on DioException catch(e) {
       //Todo implement DioException handling
       throw UnimplementedError("DioException: ${e.message}");
-    }catch (e) {
+    } catch (e) {
+      log(e.toString());
       throw UnimplementedError("$e" );
     }
   } 

@@ -13,4 +13,14 @@ abstract class DateDataModel with _$DateDataModel {
     year: 2000,
     date: 1,
   );
+
+  factory DateDataModel.initialBirthdate() {
+    final allowedBirthdate = DateTime.now().subtract(Duration(days: 6570));
+
+    return DateDataModel(
+      month: DatetimeService.instance.months[allowedBirthdate.month - 1],
+      year: allowedBirthdate.year,
+      date: allowedBirthdate.day,
+    );
+  }
 }

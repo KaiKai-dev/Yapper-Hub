@@ -33,6 +33,17 @@ abstract class SignupDataModel with _$SignupDataModel {
     birthdayFormKey: GlobalKey<FormState>(),
     credentialsFormKey: GlobalKey<FormState>(),
   );
+  
+  factory SignupDataModel.dummy() => SignupDataModel(
+    firstname: TextEditingController(text: "James"),
+    lastname: TextEditingController(text: "Yap"),
+    email: TextEditingController(text: "sample@email.com"),
+    password: TextEditingController(text: "Pass@123"),
+    birthdate: DateDataModel.initialBirthdate(),
+    nameFormKey: GlobalKey<FormState>(),
+    birthdayFormKey: GlobalKey<FormState>(),
+    credentialsFormKey: GlobalKey<FormState>(),
+  );
 
   Map<String, dynamic> toMap() {
     final birthdata = DateTime(
