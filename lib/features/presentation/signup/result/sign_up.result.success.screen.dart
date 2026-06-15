@@ -12,6 +12,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double headerBadgeSize = 100;
+    
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

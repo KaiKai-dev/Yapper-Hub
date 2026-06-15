@@ -64,6 +64,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
         ),
         body: TabBarView(
           controller: tabController,
+          physics: NeverScrollableScrollPhysics(),
           children: screens.map((screen) => SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(20),

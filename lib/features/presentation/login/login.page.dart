@@ -12,13 +12,20 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Yapper Hub',
+            // style: text,
+          ),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              
+            ],
+          ),
         ),
       ),
     );

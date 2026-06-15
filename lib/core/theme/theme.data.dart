@@ -20,7 +20,8 @@ final lightTheme = ThemeData(
   appBarTheme: AppBarThemeData(
     actionsPadding: EdgeInsets.all(16)
   ),
-  menuTheme: lightMenuTheme
+  menuTheme: lightMenuTheme,
+  scaffoldBackgroundColor: LightConstants.colorScheme.surface
 );
 
 final darkTheme = ThemeData(
@@ -34,5 +35,6 @@ final darkTheme = ThemeData(
   appBarTheme: AppBarThemeData(
     actionsPadding: EdgeInsets.all(16)
   ),
-  menuTheme: darkMenuTheme
+  menuTheme: darkMenuTheme,
+  scaffoldBackgroundColor: DarkConstants.colorScheme.surface,
 );
