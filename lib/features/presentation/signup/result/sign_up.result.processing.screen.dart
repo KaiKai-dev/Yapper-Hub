@@ -32,14 +32,23 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
       data: data
     );
 
-    log(data.toString());
+    log(result.toString());
 
-    if(result != null && result['status'] == 'success'){
-      RoutingService.instance.router.pushReplacementNamed(AppScreens.signupSuccess.name);
+    final status = result['status'];
+
+    if(status != 200){
+      RoutingService.instance.pushNamed(AppScreens.signupError);
       return;
-    } 
+    }
 
-    RoutingService.instance.router.pushReplacementNamed(AppScreens.signupError.name);
+    // TODO: redirect to new page when there is an existing user
+    // if(status == 409){
+    //   RoutingService.instance.pushNamed(AppScreens.signupAccountExisting);
+    // }
+
+    ref.invalidate(signupProvider);
+    RoutingService.instance.pushNamed(AppScreens.signupSuccess);
+    return;
   }
 
   @override

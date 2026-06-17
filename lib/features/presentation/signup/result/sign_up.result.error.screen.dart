@@ -1,14 +1,17 @@
 import 'package:chat_app/core/widgets/app_button.widget.dart';
+import 'package:chat_app/features/data/providers/signup.provider.dart';
+import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignupResultErrorScreen extends StatefulWidget {
+class SignupResultErrorScreen extends ConsumerStatefulWidget {
   const SignupResultErrorScreen({super.key});
 
   @override
-  State<SignupResultErrorScreen> createState() => _SignupResultErrorScreenState();
+  ConsumerState<SignupResultErrorScreen> createState() => _SignupResultErrorScreenState();
 }
 
-class _SignupResultErrorScreenState extends State<SignupResultErrorScreen> {
+class _SignupResultErrorScreenState extends ConsumerState<SignupResultErrorScreen> {
   bool trying = false;
 
   @override
@@ -65,20 +68,25 @@ class _SignupResultErrorScreenState extends State<SignupResultErrorScreen> {
               ),
               SizedBox(height: 24),
               Text(
-                'Ywe couldn\'t create your account right now. Please check your connection and try again.',
+                'We couldn\'t create your account right now. Please check your connection and try again.',
                 textAlign: .center,
                 style: theme.textTheme.titleMedium,
               ),
               SizedBox(height: 24),
               Spacer(),
 
-              AppButton.primary(title: 'Try Again', onPressed: () {}),
+              AppButton.primary(title: 'Try Again', onPressed: onRetry),
               SizedBox(height: 16,),
-              AppButton.neutral(title: 'Back to Welcome Page', onPressed: () {})
+              AppButton.neutral(title: 'Back to Welcome Page', onPressed: () {
+                ref.invalidate(signupProvider);
+                RoutingService.instance.pushNamed(.welcome);
+              })
             ],
           ),
         ),
       ),
     );
   }
+
+  void onRetry() => RoutingService.instance.pushNamed(.signupProcessing);
 }

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:chat_app/core/env/env.dart';
-import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:dio/dio.dart';
 
 
@@ -36,7 +35,7 @@ class HttpService {
       final result = await _client.post(route, data: data, options: options);
 // 
       // if(result.statusCode == 200){
-        return result.data as T;
+        return result.data['data'] as T;
       // }
     } on DioException catch(e) {
       //Todo implement DioException handling
@@ -82,6 +81,7 @@ class HttpService {
     } catch (e) {
       // TODO: add an exception wrapper for all exceptions
       log(e as String);
+      throw Exception(e);
     }
   }
 
