@@ -12,6 +12,7 @@ final filledButtonLight = FilledButton.styleFrom(
     color: Colors.white
   )
 );
+
 final filledButtonDark = FilledButton.styleFrom(
   backgroundColor: const Color(0xFF5664F5),
   shape: RoundedRectangleBorder(

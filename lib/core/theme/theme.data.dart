@@ -4,6 +4,8 @@ import 'package:chat_app/core/theme/color_schemes/dark/dark.dart';
 import 'package:chat_app/core/theme/color_schemes/light/light.dart';
 import 'package:chat_app/core/theme/input_decoration_theme/dark.dart';
 import 'package:chat_app/core/theme/input_decoration_theme/light.dart';
+import 'package:chat_app/core/theme/menu_style/dark.dart';
+import 'package:chat_app/core/theme/menu_style/light.dart';
 import 'package:chat_app/core/theme/text_themes/text.theme.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,9 @@ final lightTheme = ThemeData(
   inputDecorationTheme: lightDecorationtheme,
   appBarTheme: AppBarThemeData(
     actionsPadding: EdgeInsets.all(16)
-  )
+  ),
+  menuTheme: lightMenuTheme,
+  scaffoldBackgroundColor: LightConstants.colorScheme.surface
 );
 
 final darkTheme = ThemeData(
@@ -31,4 +35,6 @@ final darkTheme = ThemeData(
   appBarTheme: AppBarThemeData(
     actionsPadding: EdgeInsets.all(16)
   ),
+  menuTheme: darkMenuTheme,
+  scaffoldBackgroundColor: DarkConstants.colorScheme.surface,
 );

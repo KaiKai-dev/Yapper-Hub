@@ -1,4 +1,4 @@
-import 'package:chat_app/features/data/functions/validators.dart';
+import 'package:chat_app/core/utils/validators.dart';
 
 enum Validator {
     required,
@@ -10,6 +10,7 @@ enum Validator {
     String? run(String? value) {
       return switch(this) {
         Validator.required => requiredField(value),
+        Validator.password => validatePassword(value),
 
         // TODO implement other validation types
         _ => requiredField(value)

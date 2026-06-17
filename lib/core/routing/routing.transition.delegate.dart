@@ -1,6 +1,4 @@
-import 'package:chat_app/core/routing/routing.transition.enum.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+part of routing_library;
 
 class RoutingTransitionDelegate<T> extends CustomTransitionPage<T> {
   final RouteTransition transition;
