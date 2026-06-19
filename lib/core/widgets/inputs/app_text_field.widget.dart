@@ -10,6 +10,7 @@ class AppTextField extends StatefulWidget {
   final Validator? validator;
   final Widget? prefix;
   final Widget? suffix;
+  final Widget? counter;
   final void Function(String)? onChanged;
 
   const AppTextField({
@@ -22,6 +23,7 @@ class AppTextField extends StatefulWidget {
     this.onChanged,
     this.prefix,
     this.suffix,
+    this.counter,
   });
 
   const AppTextField.required({
@@ -33,6 +35,7 @@ class AppTextField extends StatefulWidget {
     this.onChanged,
     this.prefix,
     this.suffix,
+    this.counter,
   }) : validator = Validator.required;
 
   const AppTextField.requiredWithLength({
@@ -44,16 +47,18 @@ class AppTextField extends StatefulWidget {
     this.onChanged,
     this.prefix,
     this.suffix,
+    this.counter,
   }) : validator = Validator.requiredWithMaxMinLength;
 
   const AppTextField.password({
     super.key,
-    this.label,
-    this.hintText,
     this.controller,
+    this.label = "Password",
+    this.hintText = '********',
     this.onChanged,
     this.prefix,
     this.suffix,
+    this.counter,
   }): type = InputType.password,
       validator = Validator.password;
 
@@ -111,6 +116,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     size: 20,
                   ),
                 ),
+            counter: widget.counter
           ),
           textAlignVertical: .center,
           onChanged: widget.onChanged,
