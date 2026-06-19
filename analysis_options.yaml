@@ -28,6 +28,7 @@ analyzer:
   errors: 
       invalid_annotation_target: ignore
       no_leading_underscores_for_local_identifiers: ignore
+      unnecessary_library_name: ignore
       use_string_in_part_of_directives: ignore
 
 

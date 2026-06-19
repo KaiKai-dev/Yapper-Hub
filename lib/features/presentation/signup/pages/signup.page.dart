@@ -8,9 +8,6 @@ import 'package:chat_app/features/data/services/routing.service.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.birthday.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.credentials.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.name.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.error.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.processing.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.success.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +34,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final provider = ref.watch(signupProvider);
     final notifier = ref.watch(signupProvider.notifier);
 
 

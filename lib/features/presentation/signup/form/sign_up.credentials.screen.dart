@@ -19,7 +19,7 @@ class _SignupCredentialScreenState extends ConsumerState<SignupCredentialScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = ref.watch(signupProvider);
-    final notifier = ref.read(signupProvider.notifier);
+    // final notifier = ref.read(signupProvider.notifier);
 
     return Form(
       key: provider.credentialsFormKey,

@@ -42,8 +42,6 @@ String? validatePassword(String? value) {
     messages.add('at least one special characters');
   }
 
-  print(messages);
-
   // if(value.contains(RegExp(source)))
   if(messages.isEmpty) return null;
   
