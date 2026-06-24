@@ -9,6 +9,9 @@ enum AppScreens {
   signupProcessing,
   signupSuccess,
   signupError,
+
+  // Main Screens
+  home,
   
   test;
 
@@ -25,6 +28,8 @@ final Map<AppScreens, String> _pageNames = {
   AppScreens.signupProcessing   : "SignupProcessingScreen",
   AppScreens.signupSuccess      : "SignupSuccessScreen",
   AppScreens.signupError        : "SignupErrorScreen",
+
+  AppScreens.home               : "MainChatScreen",
   
 };
 
@@ -33,8 +38,10 @@ final Map<AppScreens, String> _paths = {
   AppScreens.welcome            : "/welcome",
   AppScreens.login              : "/login",
   AppScreens.signup             : "/signup",
-  AppScreens.signupProcessing   : "signup/processing",
-  AppScreens.signupSuccess      : "signup/success",
-  AppScreens.signupError        : "signup/error",
+  AppScreens.signupProcessing   : "/signup/processing",
+  AppScreens.signupSuccess      : "/signup/success",
+  AppScreens.signupError        : "/signup/error",
+
+  AppScreens.home               : "/main"
   
 };

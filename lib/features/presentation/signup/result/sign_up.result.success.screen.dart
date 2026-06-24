@@ -1,6 +1,6 @@
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/presentation/signup/widgets/yapper_features_card.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

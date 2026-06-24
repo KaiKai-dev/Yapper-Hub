@@ -1,8 +1,8 @@
 
-import 'package:chat_app/core/providers/theme.provider.dart';
+import 'package:chat_app/core/theme/theme.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

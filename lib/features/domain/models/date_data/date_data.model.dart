@@ -1,7 +1,7 @@
 import 'package:chat_app/core/services/datetime.service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'date.data.model.freezed.dart';
+part 'date_data.model.freezed.dart';
 
 @freezed
 abstract class DateDataModel with _$DateDataModel {

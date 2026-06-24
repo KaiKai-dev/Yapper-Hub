@@ -4,7 +4,7 @@ import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.birthday.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.credentials.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.name.screen.dart';
