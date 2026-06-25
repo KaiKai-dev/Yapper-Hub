@@ -11,13 +11,12 @@ class StorageService {
   SharedPreferences? get storage => _storage;
   FlutterSecureStorage? get secureStorage => _secureStorage;
 
-  final acceptableTypes = [String, List<String>, bool, double];
-
   Future<void> init() async {
     _storage = await SharedPreferences.getInstance();
     _secureStorage = FlutterSecureStorage();
   }
 
+  /// Get Functions
   String? get(String key) => _storage!.getString(key);
   List<String>? getList(String key) => _storage!.getStringList(key);
   bool getBool(String key) => _storage!.getBool(key)!;
@@ -27,6 +26,7 @@ class StorageService {
   Future<Map<String, dynamic>>? securedShowAll(String key) async =>
       await _secureStorage!.readAll();
 
+  /// Store Functions
   void storeString(String key, String value) async =>
       await _storage!.setString(key, value);
   void storeStringList(String key, List<String> value) async =>
@@ -38,4 +38,12 @@ class StorageService {
 
   void secureStore(String key, String value) async =>
       await _secureStorage!.write(key: key, value: value);
+
+  /// Delete Functions
+  void delete(String key) => _storage!.remove(key);
+  void secureDelete(String key) => _secureStorage!.delete(key: key);
+
+  /// Reset Functions
+  void reset() => _storage!.clear();
+  void secureReset() => _secureStorage!.deleteAll();
 }
