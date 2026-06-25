@@ -16,23 +16,16 @@ class AuthService {
   Future<AuthData?> restoreSession() async {
     final stored = await StorageService.instance.securedGet('token');
 
-    if (stored != null) {
-      final response = await HttpService.instance.get(
-        ApiRoutes.verifyLogin,
-        bearer: stored,
-      );
+    if (stored == null) return null;
+    
+    final response = await HttpService.instance.get(
+      ApiRoutes.verifyLogin,
+      bearer: stored,
+    );
 
-      // final responseValue = {
-      //   'user': response[0]['user'],
-      //   'bearer': stored,
-      // };
-
-      final authData = AuthData.fromJson(response);
-      log(authData.toString());
-      return authData;
-    }
-
-    return null;
+    final authData = AuthData.fromJson(response);
+    log(authData.toString());
+    return authData;
   }
 
   Future<Map<String, dynamic>> login({
@@ -45,4 +38,7 @@ class AuthService {
 
     return response;
   }
+
+  Future<void> logout(String token) async =>
+      await HttpService.instance.post(ApiRoutes.logout, bearer: token);
 }
