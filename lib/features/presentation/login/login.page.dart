@@ -2,6 +2,7 @@ import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,8 +21,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+     
+    final textTheme = context.theme.textTheme;
 
     return SafeArea(
       child: Scaffold(
@@ -64,7 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Text(
                         'Forgot Password?',
                         style: textTheme.labelMedium!.copyWith(
-                          color: theme.colorScheme.primary,
+                          color: context.theme.colorScheme.primary,
                         ),
                       ),
                     ),
@@ -83,13 +84,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     children: [
                       Expanded(
                         child: Divider(
-                          color: theme.textTheme.labelMedium!.color,
+                          color: textTheme.labelMedium!.color,
                         ),
                       ),
                       Text('OR'),
                       Expanded(
                         child: Divider(
-                          color: theme.textTheme.labelMedium!.color,
+                          color: textTheme.labelMedium!.color,
                         ),
                       ),
                     ],

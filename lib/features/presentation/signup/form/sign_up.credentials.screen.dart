@@ -2,6 +2,7 @@ import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/features/domain/enums/validator.dart';
 import 'package:chat_app/core/widgets/gap.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,14 +18,14 @@ class SignupCredentialScreen extends ConsumerStatefulWidget {
 class _SignupCredentialScreenState extends ConsumerState<SignupCredentialScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     final provider = ref.watch(signupProvider);
     // final notifier = ref.read(signupProvider.notifier);
 
     return Form(
       key: provider.credentialsFormKey,
       child: Container(
-        color: theme.colorScheme.surface,
+        color: context.theme.colorScheme.surface,
         width: double.infinity,
         child: Column(
           crossAxisAlignment: .stretch,
@@ -32,11 +33,11 @@ class _SignupCredentialScreenState extends ConsumerState<SignupCredentialScreen>
             Gap(height: 16),
             RichText(
               text: TextSpan(
-                style: theme.textTheme.displaySmall,
+                style: context.theme.textTheme.displaySmall,
                 children: [
                   TextSpan(text: "Secure your "),
                   TextSpan(text: "Yapping ", style: TextStyle(
-                    color: theme.colorScheme.primary
+                    color: context.theme.colorScheme.primary
                   )),
                   TextSpan(text: "space "),
                 ]
@@ -45,7 +46,7 @@ class _SignupCredentialScreenState extends ConsumerState<SignupCredentialScreen>
             Gap(height: 8),
             Text(
               "Enter your credentials to begin exploring the editorial side of conversation.",
-              style: theme.textTheme.titleSmall,
+              style: context.theme.textTheme.titleSmall,
             ),
             Gap(height: 40),
 

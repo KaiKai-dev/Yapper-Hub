@@ -1,4 +1,5 @@
 import 'package:chat_app/core/widgets/enums/app_button_styles.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget{
@@ -60,8 +61,7 @@ class AppButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = context.theme.colorScheme;
 
     final backgroundColor = switch(_style){
       AppButtonStyle.primary => colorScheme.primary,
@@ -96,7 +96,7 @@ class AppButton extends StatelessWidget{
       style: FilledButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
-        textStyle: theme.textTheme.labelLarge,
+        textStyle: context.theme.textTheme.labelLarge,
         side: side,
       ),
       child: Row(

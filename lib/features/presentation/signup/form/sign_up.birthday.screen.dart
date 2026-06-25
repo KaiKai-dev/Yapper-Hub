@@ -1,6 +1,7 @@
 import 'package:chat_app/core/constants/months.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/core/services/datetime.service.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:chat_app/features/domain/models/date_data/date_data.model.dart';
 import 'package:chat_app/core/widgets/inputs/app_dropdown.widget.dart';
 import 'package:chat_app/core/widgets/gap.dart';
@@ -31,7 +32,7 @@ class _SignupBirthdayScreenState extends ConsumerState<SignupBirthdayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     final provider = ref.watch(signupProvider);
     final notifier = ref.read(signupProvider.notifier);
     
@@ -44,17 +45,17 @@ class _SignupBirthdayScreenState extends ConsumerState<SignupBirthdayScreen> {
     return Form(
       key: provider.birthdayFormKey,
       child: Container(
-        color: theme.colorScheme.surface,
+        color: context.theme.colorScheme.surface,
         width: double.infinity,
         child: Column(
           crossAxisAlignment: .stretch,
           children: [
             Gap(height: 16),
-            Text("When is your birthday?", style: theme.textTheme.displaySmall),
+            Text("When is your birthday?", style: context.theme.textTheme.displaySmall),
             Gap(height: 8),
             Text(
               "Your profile won't show this information",
-              style: theme.textTheme.titleSmall,
+              style: context.theme.textTheme.titleSmall,
             ),
             Gap(height: 40),
 
