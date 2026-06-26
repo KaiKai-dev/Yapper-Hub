@@ -21,7 +21,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-     
     final textTheme = context.theme.textTheme;
 
     return SafeArea(
@@ -83,22 +82,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     spacing: 12,
                     children: [
                       Expanded(
-                        child: Divider(
-                          color: textTheme.labelMedium!.color,
-                        ),
+                        child: Divider(color: textTheme.labelMedium!.color),
                       ),
                       Text('OR'),
                       Expanded(
-                        child: Divider(
-                          color: textTheme.labelMedium!.color,
-                        ),
+                        child: Divider(color: textTheme.labelMedium!.color),
                       ),
                     ],
                   ),
                   AppButton.surface(
                     title: 'Create new Account',
                     onPressed: () => RoutingService.instance.pushNamed(.signup),
-                  )
+                  ),
                 ],
               ),
 
@@ -115,9 +110,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void onLogin() async {
     final authNotifier = ref.read(authProvider.notifier);
 
-    await authNotifier.login(data: {
-      'email'     : emailController.value.text,
-      'password'  : passwordController.value.text
-    });
+    await authNotifier.login(
+      data: {
+        'email': emailController.value.text,
+        'password': passwordController.value.text,
+      },
+    );
+
+    if (ref.read(authProvider) == null && mounted) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AboutDialog.adaptive(children: [Text('Invalid Credentials')]),
+      );
+      return;
+    }
+
+    RoutingService.instance.pushNamed(.home);
   }
 }

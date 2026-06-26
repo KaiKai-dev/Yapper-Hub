@@ -35,7 +35,7 @@ class HttpService {
       final result = await _client.post(route, data: data, options: options);
 // 
       // if(result.statusCode == 200){
-        return result.data['data'] as T;
+        return result.data as T;
       // }
     } on DioException catch(e) {
       //Todo implement DioException handling
