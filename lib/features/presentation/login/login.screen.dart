@@ -126,6 +126,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
 
-    RoutingService.instance.pushNamed(.home);
+    RoutingService.instance.pushNamed(.chats);
   }
 }

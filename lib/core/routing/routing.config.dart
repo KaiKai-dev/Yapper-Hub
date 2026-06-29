@@ -34,10 +34,22 @@ final GoRouter routingConfig = GoRouter(
       ],
     ),
 
-    AppRoute.withTransition(
-      screen: AppScreens.home,
-      child: HomeShell(),
-      transition: RouteTransition.fromRight,
-    ),
+    ShellRoute(
+      builder: (context, state, child) => HomeShell(state: state, child: child),
+      routes: [
+        AppRoute(screen: AppScreens.chats, child: ChatsScreen()),
+        AppRoute(screen: AppScreens.people, child: PeopleScreen()),
+        AppRoute(screen: AppScreens.account, child: MenuScreen()),
+      ]
+    )
+
+    // AppRoute.withTransition(
+    //   screen: AppScreens.home,
+    //   child: HomeShell(),
+    //   transition: RouteTransition.fromRight,
+    //   routes: [
+
+    //   ]
+    // ),
   ],
 );
