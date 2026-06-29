@@ -19,6 +19,7 @@ class HomeShell extends ConsumerStatefulWidget {
 }
 
 class _HomeShellState extends ConsumerState<HomeShell> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final authNotifier = ref.read(authProvider.notifier);
@@ -27,10 +28,15 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       child: Scaffold(
         body: widget.child,
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          landscapeLayout: .centered,
+          onTap: (value) => setState(() {
+            currentIndex = value;
+          }),
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Chats'),
             BottomNavigationBarItem(icon: Icon(Icons.people), label: 'People'),
-            BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Account'),
+            BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
           ],
         ),
       ),
