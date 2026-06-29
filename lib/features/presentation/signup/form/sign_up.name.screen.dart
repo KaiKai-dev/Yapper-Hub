@@ -2,6 +2,7 @@ import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/features/domain/enums/validator.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:chat_app/core/widgets/gap.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,7 +17,7 @@ class _SignupNameScreenState extends ConsumerState<SignupNameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     final provider = ref.watch(signupProvider);
 
     return Form(
@@ -24,17 +25,17 @@ class _SignupNameScreenState extends ConsumerState<SignupNameScreen> {
       child: 
       
       Container(
-        color: theme.colorScheme.surface,
+        color: context.theme.colorScheme.surface,
         child: Column(
           mainAxisSize: .max,
           crossAxisAlignment: .start,
           children: [
             Gap(height: 16),
-            Text("What is your name?", style: theme.textTheme.displaySmall),
+            Text("What is your name?", style: context.theme.textTheme.displaySmall),
             Gap(height: 8),
             Text(
               "Join the Yap Editorial. Tell us how you'd like to be identified in the hub",
-              style: theme.textTheme.titleSmall,
+              style: context.theme.textTheme.titleSmall,
             ),
             Gap(height: 40),
             

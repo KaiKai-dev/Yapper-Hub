@@ -1,6 +1,7 @@
 import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,7 +17,7 @@ class _SignupResultErrorScreenState extends ConsumerState<SignupResultErrorScree
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     final double headerBadgeSize = 100;
 
     return SafeArea(
@@ -36,24 +37,24 @@ class _SignupResultErrorScreenState extends ConsumerState<SignupResultErrorScree
                 height: headerBadgeSize,
                 width: headerBadgeSize,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainer,
+                  color: context.theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(headerBadgeSize / 2),
                   border: Border.all(
                     width: .15,
-                    color: theme.colorScheme.error,
+                    color: context.theme.colorScheme.error,
                   ),
                   boxShadow: [
                     BoxShadow(
                       spreadRadius: 5,
                       blurRadius: 30,
-                      color: theme.colorScheme.error,
+                      color: context.theme.colorScheme.error,
                     ),
                   ],
                 ),
                 child: Icon(
                   Icons.error,
                   size: headerBadgeSize / 2,
-                  color: theme.colorScheme.error,
+                  color: context.theme.colorScheme.error,
                 ),
               ),
               SizedBox(height: 40),
@@ -61,7 +62,7 @@ class _SignupResultErrorScreenState extends ConsumerState<SignupResultErrorScree
               Text(
                 "Something went wrong",
                 textAlign: .center,
-                style: theme.textTheme.displaySmall!.copyWith(
+                style: context.theme.textTheme.displaySmall!.copyWith(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w800,
                 )
@@ -70,7 +71,7 @@ class _SignupResultErrorScreenState extends ConsumerState<SignupResultErrorScree
               Text(
                 'We couldn\'t create your account right now. Please check your connection and try again.',
                 textAlign: .center,
-                style: theme.textTheme.titleMedium,
+                style: context.theme.textTheme.titleMedium,
               ),
               SizedBox(height: 24),
               Spacer(),

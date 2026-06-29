@@ -4,13 +4,11 @@ import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';
 import 'package:chat_app/core/theme/styles/hyperlink.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.birthday.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.credentials.screen.dart';
 import 'package:chat_app/features/presentation/signup/form/sign_up.name.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.error.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.processing.screen.dart';
-import 'package:chat_app/features/presentation/signup/result/sign_up.result.success.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,8 +34,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final provider = ref.watch(signupProvider);
+     
     final notifier = ref.watch(signupProvider.notifier);
 
 
@@ -59,7 +56,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
             tabController.index == 0
               ? "Exit"
               : "Go Back",
-            style: theme.textTheme.titleSmall,
+            style: context.theme.textTheme.titleSmall,
           ),
         ),
         body: TabBarView(
@@ -91,7 +88,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with TickerProvider
               RichText(
                 textAlign: .center,
                 text: TextSpan(
-                  style: theme.textTheme.labelSmall,
+                  style: context.theme.textTheme.labelSmall,
                   children: [
                     TextSpan(text: "By proceeding, you agree to our "),
                     TextSpan(
@@ -178,7 +175,7 @@ class ProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     return Row(
       spacing: 12,
       children: List.generate(
@@ -191,7 +188,7 @@ class ProgressIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               border: currentPage == page ? Border.all(
-                color: theme.colorScheme.primary
+                color: context.theme.colorScheme.primary
               ) : null,
             ),
             child: Container(
@@ -199,8 +196,8 @@ class ProgressIndicator extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: isFilledUp(page)
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.surfaceDim,
+                  ? context.theme.colorScheme.primary
+                  : context.theme.colorScheme.surfaceDim,
               ),
             ),
           ),

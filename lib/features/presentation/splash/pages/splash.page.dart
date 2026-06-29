@@ -1,18 +1,19 @@
 
-import 'package:chat_app/core/routing/routing.screens.enum.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
+import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   void initState() {
@@ -39,7 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.blue.shade400,
                 backgroundColor: Colors.blueGrey.shade50,
               ),
-            )
+            ),
+            // TextButton(
+            //   onPressed: () => StorageService.instance.secureReset(), 
+            //   child: Text(
+            //     'Reset'
+            //   )
+            // )
           ],
         ),
       )
@@ -47,7 +54,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void initApp() async {
-    await Future.delayed(Duration(seconds: 5));
-    if(mounted) RoutingService.instance.pushNamed(.welcome);
+    await ref.read(authProvider.notifier).restoreSession();
+
+    if(!mounted) return; 
+
+    RoutingService.instance.pushNamed(switch(ref.read(authProvider) == null) {
+      true => .welcome,
+      false => .home,
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:chat_app/features/presentation/signup/widgets/yapper_features_card.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +11,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     final double headerBadgeSize = 100;
     
     return SafeArea(
@@ -28,24 +29,24 @@ class SignupResultSuccessScreen extends StatelessWidget {
                   height: headerBadgeSize,
                   width: headerBadgeSize,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainer,
+                    color: context.theme.colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(headerBadgeSize / 2),
                     border: Border.all(
                       width: .15,
-                      color: theme.colorScheme.primary,
+                      color: context.theme.colorScheme.primary,
                     ),
                     boxShadow: [
                       BoxShadow(
                         spreadRadius: 5,
                         blurRadius: 30,
-                        color: theme.colorScheme.secondary,
+                        color: context.theme.colorScheme.secondary,
                       ),
                     ],
                   ),
                   child: Icon(
                     Icons.check_circle_rounded,
                     size: headerBadgeSize / 2,
-                    color: theme.colorScheme.secondary,
+                    color: context.theme.colorScheme.secondary,
                   ),
                 ),
                 SizedBox(height: 40),
@@ -53,7 +54,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
                 Text(
                   'Welcome to Yapper-Hub',
                   textAlign: .center,
-                  style: theme.textTheme.displaySmall!.copyWith(
+                  style: context.theme.textTheme.displaySmall!.copyWith(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w800,
                   ),
@@ -62,7 +63,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
                 Text(
                   'Your account has been successfully created. Ready to join the conversation?',
                   textAlign: .center,
-                  style: theme.textTheme.titleMedium!.copyWith(
+                  style: context.theme.textTheme.titleMedium!.copyWith(
                     fontSize: 16
                   ),
                 ),
@@ -79,7 +80,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 YapperFeaturesCard(
-                  icon: Icon(Icons.lock, color: theme.colorScheme.primary),
+                  icon: Icon(Icons.lock, color: context.theme.colorScheme.primary),
                   title: 'Secure Sync',
                   message:
                       'End-to-end encryption active acrosss all your devices',
@@ -94,7 +95,7 @@ class SignupResultSuccessScreen extends StatelessWidget {
                 SizedBox(height: 12),
                 Text(
                   'SECURED BY YAPPER CLOUD PROTOCOL',
-                  style: theme.textTheme.labelMedium,
+                  style: context.theme.textTheme.labelMedium,
                 ),
               ],
             ),

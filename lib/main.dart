@@ -1,15 +1,16 @@
 import 'package:chat_app/core/network/http_service.dart';
-import 'package:chat_app/core/providers/theme.provider.dart';
-import 'package:chat_app/core/routing/routing.library.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/theme/theme.provider.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   RoutingService.instance.init();
   HttpService.instance.init();
+  await StorageService.instance.init();
 
   runApp(
     ProviderScope(

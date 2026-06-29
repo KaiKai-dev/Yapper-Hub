@@ -35,7 +35,7 @@ class HttpService {
       final result = await _client.post(route, data: data, options: options);
 // 
       // if(result.statusCode == 200){
-        return result.data['data'] as T;
+        return result.data as T;
       // }
     } on DioException catch(e) {
       //Todo implement DioException handling
@@ -80,7 +80,7 @@ class HttpService {
       }
     } catch (e) {
       // TODO: add an exception wrapper for all exceptions
-      log(e as String);
+      // log(e as String);
       throw Exception(e);
     }
   }
@@ -94,7 +94,7 @@ class HttpService {
       'Content-Type': 'application/json',
       'x-access-key': 'Yapper-Access-Key-1217',
 
-      if(bearerToken != null) 'Authorization': 'Bearer: $bearerToken'
+      if(bearerToken != null) 'Authorization': 'Bearer $bearerToken'
     };
 
     if(options != null) returnData.addAll(options);

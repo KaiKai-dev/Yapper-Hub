@@ -1,8 +1,7 @@
 import 'dart:developer';
 
-import 'package:chat_app/core/network/http_service.dart';
-import 'package:chat_app/features/domain/models/date.data.model/date.data.model.dart';
-import 'package:chat_app/features/domain/models/signup.data.model/signup.data.model.dart';
+import 'package:chat_app/features/domain/models/date_data/date_data.model.dart';
+import 'package:chat_app/features/domain/models/signup_data/signup_data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,22 +33,6 @@ class SignupNotifier extends Notifier<SignupDataModel> {
     }
     log('Logging In');
     onSubmit!();
-  }
-
-  // void nextPage() {
-  //   state = state.copyWith(currentPage: state.currentPage + 1);
-  // }
-
-  // void previousPage() {
-  //   state = state.copyWith(currentPage: state.currentPage - 1);
-  // }
-
-  void submit() async {
-    final result = HttpService.instance.post(
-      '/auth/signup',
-      data: SignupDataModel.dummyData(),
-      // data: state.toMap(),
-    );
   }
 
   /// UTILITY FUNCTIONS
