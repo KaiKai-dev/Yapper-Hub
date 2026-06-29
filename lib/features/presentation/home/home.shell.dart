@@ -23,25 +23,17 @@ class _HomeShellState extends ConsumerState<HomeShell> {
   Widget build(BuildContext context) {
     final authNotifier = ref.read(authProvider.notifier);
 
-    return SafeArea(child: Scaffold(
-      body: widget.child,
-      
-      // Column(
-      //   mainAxisAlignment: .center,
-      //   crossAxisAlignment: .stretch,
-      //   children: [
-      //     Text(
-      //       "Home Page",
-      //       textAlign: .center,
-      //     ),
-      //     TextButton(onPressed: () async {
-      //       await authNotifier.logout();
-
-      //       RoutingService.instance.pushNamed(.welcome);
-      //     }, child: Text("Logout")),
-      //     // TextButton(onPressed: () => StorageService.instance.secureReset(), child: Text("reset secure"))
-      //   ],
-      // ),
-    ));
+    return SafeArea(
+      child: Scaffold(
+        body: widget.child,
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Chats'),
+            BottomNavigationBarItem(icon: Icon(Icons.people), label: 'People'),
+            BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Account'),
+          ],
+        ),
+      ),
+    );
   }
 }
