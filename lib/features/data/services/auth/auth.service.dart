@@ -17,7 +17,7 @@ class AuthService {
     final stored = await StorageService.instance.securedGet('token');
 
     if (stored == null) return null;
-    
+
     final response = await HttpService.instance.get(
       ApiRoutes.verifyLogin,
       bearer: stored,
@@ -30,15 +30,7 @@ class AuthService {
 
   Future<Map<String, dynamic>> login({
     required Map<String, dynamic> data,
-  }) async {
-    final response = await HttpService.instance.post(
-      ApiRoutes.login,
-      data: data,
-    );
-    
-
-    return response;
-  }
+  }) async => await HttpService.instance.post(ApiRoutes.login, data: data);
 
   Future<void> logout(String token) async =>
       await HttpService.instance.post(ApiRoutes.logout, bearer: token);
