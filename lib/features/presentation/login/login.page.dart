@@ -1,29 +1,27 @@
-import 'dart:developer';
-
-import 'package:chat_app/core/network/api_endpoints.dart';
-import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   static final String pageName = "LoginScreen";
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+    final textTheme = context.theme.textTheme;
 
     return SafeArea(
       child: Scaffold(
@@ -66,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'Forgot Password?',
                         style: textTheme.labelMedium!.copyWith(
-                          color: theme.colorScheme.primary,
+                          color: context.theme.colorScheme.primary,
                         ),
                       ),
                     ),
@@ -84,28 +82,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     spacing: 12,
                     children: [
                       Expanded(
-                        child: Divider(
-                          color: theme.textTheme.labelMedium!.color,
-                        ),
+                        child: Divider(color: textTheme.labelMedium!.color),
                       ),
                       Text('OR'),
                       Expanded(
-                        child: Divider(
-                          color: theme.textTheme.labelMedium!.color,
-                        ),
+                        child: Divider(color: textTheme.labelMedium!.color),
                       ),
                     ],
                   ),
                   AppButton.surface(
                     title: 'Create new Account',
                     onPressed: () => RoutingService.instance.pushNamed(.signup),
-                  )
-                  // GestureDetector(
-                  //   child: Text('Create new Account', style: theme.textTheme.labelLarge!.copyWith(
-                  //     color: theme.colorScheme.onSurface
-                  //   )),
-                  //   onTap: () => RoutingService.instance.pushNamed(.signup),
-                  // ),
+                  ),
                 ],
               ),
 
@@ -120,19 +108,24 @@ class _LoginScreenState extends State<LoginScreen> {
   void onForgotPassword() {}
 
   void onLogin() async {
+    final authNotifier = ref.read(authProvider.notifier);
 
-    log({
-        'email': emailController.value.text,
-        'password': passwordController.value.text
-      }.toString());
-    final response = await HttpService.instance.post(
-      ApiRoutes.login,
+    await authNotifier.login(
       data: {
         'email': emailController.value.text,
-        'password': passwordController.value.text
-      }
+        'password': passwordController.value.text,
+      },
     );
 
-    log(response.toString());
+    if (ref.read(authProvider) == null && mounted) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AboutDialog.adaptive(children: [Text('Invalid Credentials')]),
+      );
+      return;
+    }
+
+    RoutingService.instance.pushNamed(.home);
   }
 }

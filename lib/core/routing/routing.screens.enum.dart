@@ -6,12 +6,12 @@ enum AppScreens {
   // Auth Screens
   login,
   signup,
-  signupName,
-  signupBirthday,
-  signupCredentials,
   signupProcessing,
   signupSuccess,
   signupError,
+
+  // Main Screens
+  home,
   
   test;
 
@@ -25,12 +25,11 @@ final Map<AppScreens, String> _pageNames = {
   AppScreens.welcome            : "WelcomeScreen",
   AppScreens.login              : "LoginScreen",
   AppScreens.signup             : "SignUpScreen",
-  AppScreens.signupName         : "SignupNameScreen",
-  AppScreens.signupBirthday     : "SignupBirthdayScreen",
-  AppScreens.signupCredentials  : "SignupCredentialsScreen",
   AppScreens.signupProcessing   : "SignupProcessingScreen",
   AppScreens.signupSuccess      : "SignupSuccessScreen",
   AppScreens.signupError        : "SignupErrorScreen",
+
+  AppScreens.home               : "MainChatScreen",
   
 };
 
@@ -39,11 +38,10 @@ final Map<AppScreens, String> _paths = {
   AppScreens.welcome            : "/welcome",
   AppScreens.login              : "/login",
   AppScreens.signup             : "/signup",
-  AppScreens.signupName         : "/signup/name",
-  AppScreens.signupBirthday     : "/signup/birthday",
-  AppScreens.signupCredentials  : "/signup/credentials",
-  AppScreens.signupProcessing   : "signup/processing",
-  AppScreens.signupSuccess      : "signup/success",
-  AppScreens.signupError        : "signup/error",
+  AppScreens.signupProcessing   : "/signup/processing",
+  AppScreens.signupSuccess      : "/signup/success",
+  AppScreens.signupError        : "/signup/error",
+
+  AppScreens.home               : "/main"
   
 };

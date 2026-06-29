@@ -1,3 +1,4 @@
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 
 class YapperFeaturesCard extends StatelessWidget {
@@ -13,14 +14,14 @@ class YapperFeaturesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     return Container(
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainer,
+        color: context.theme.colorScheme.surfaceContainer,
         border: Border.all(
           width: .2,
-          color: theme.colorScheme.onSurfaceVariant,
+          color: context.theme.colorScheme.onSurfaceVariant,
         ),
         borderRadius: BorderRadius.circular(24)
       ),
@@ -31,14 +32,14 @@ class YapperFeaturesCard extends StatelessWidget {
           icon,
           Text(
             title,
-            style: theme.textTheme.displaySmall!.copyWith(
+            style: context.theme.textTheme.displaySmall!.copyWith(
               fontWeight: .w800,
               fontSize: 16
             ),
           ),
           Text(
             message,
-            style: theme.textTheme.bodyMedium,
+            style: context.theme.textTheme.bodyMedium,
           )
         ],
       ),

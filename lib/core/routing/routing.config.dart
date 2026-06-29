@@ -34,6 +34,10 @@ final GoRouter routingConfig = GoRouter(
       ],
     ),
 
-    // AppRoute.withTransition(screen: AppScreens.login, child: LoginScreen())
+    AppRoute.withTransition(
+      screen: AppScreens.home,
+      child: HomeShell(),
+      transition: RouteTransition.fromRight,
+    ),
   ],
 );

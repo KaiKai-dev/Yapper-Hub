@@ -4,7 +4,8 @@ import 'package:chat_app/core/network/api_endpoints.dart';
 import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';
-import 'package:chat_app/features/data/services/routing.service.dart';
+import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,7 +54,7 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
 
     return SafeArea(
       child: Scaffold(
@@ -83,12 +84,12 @@ class _SignupResultProcessingScreenState extends ConsumerState<SignupResultProce
                       Text(
                         "Creating your Profile.",
                         textAlign: .center,
-                        style: theme.textTheme.displaySmall
+                        style: context.theme.textTheme.displaySmall
                       ),
                       Text(
                         "Preparing your personalized Yapping space for you...",
                         textAlign: .center,
-                        style: theme.textTheme.labelMedium
+                        style: context.theme.textTheme.labelMedium
                       )
                     ],
                   )

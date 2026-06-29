@@ -1,3 +1,4 @@
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 
 class AppDropdown<T> extends StatelessWidget {
@@ -24,7 +25,7 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+     
     return Column(
       spacing: 12,
       crossAxisAlignment: .start,
@@ -33,7 +34,7 @@ class AppDropdown<T> extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: Text(
             title!,
-            style: titleStyle ?? theme.textTheme.labelMedium,
+            style: titleStyle ?? context.theme.textTheme.labelMedium,
           ),
         ),
         DropdownMenu<T>(
@@ -43,8 +44,8 @@ class AppDropdown<T> extends StatelessWidget {
           width: stretch 
             ? double.infinity 
             : null,
-          inputDecorationTheme: theme.inputDecorationTheme, 
-          menuStyle: theme.menuTheme.style,
+          inputDecorationTheme: context.theme.inputDecorationTheme, 
+          menuStyle: context.theme.menuTheme.style,
           dropdownMenuEntries: dropdownMenuEntries,
           onSelected: onSelected,
         ),

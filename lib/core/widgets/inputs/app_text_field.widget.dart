@@ -1,5 +1,6 @@
 import 'package:chat_app/core/widgets/enums/input_type.dart';
 import 'package:chat_app/features/domain/enums/validator.dart';
+import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatefulWidget {
@@ -77,8 +78,8 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+     
+    final textTheme = context.theme.textTheme;
 
     return Column(
       crossAxisAlignment: .start,
