@@ -36,6 +36,7 @@ final Map<AppScreens, String> _pageNames = {
   AppScreens.home               : "HomeScreen",
   AppScreens.chats              : "ChatsScreen",
   AppScreens.people             : "PeopleScreen",
+  AppScreens.menu               : "MenuScreen",
   AppScreens.account            : "AccountScreen",
   
 };
@@ -52,6 +53,7 @@ final Map<AppScreens, String> _paths = {
   AppScreens.home               : "/main",
   AppScreens.chats              : "/main/chats",
   AppScreens.people             : "/main/people",
+  AppScreens.menu               : '/main/menu',
   AppScreens.account            : "/main/account",
   
 };

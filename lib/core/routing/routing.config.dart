@@ -39,7 +39,7 @@ final GoRouter routingConfig = GoRouter(
       routes: [
         AppRoute(screen: AppScreens.chats, child: ChatsScreen()),
         AppRoute(screen: AppScreens.people, child: PeopleScreen()),
-        AppRoute(screen: AppScreens.account, child: MenuScreen()),
+        AppRoute(screen: AppScreens.menu, child: MenuScreen()),
       ]
     )
 

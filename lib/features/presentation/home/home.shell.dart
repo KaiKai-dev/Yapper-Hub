@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:chat_app/core/routing/routing.service.dart';
+import 'package:chat_app/features/data/constants/home.routes.dart';
 import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
@@ -19,20 +22,30 @@ class HomeShell extends ConsumerStatefulWidget {
 }
 
 class _HomeShellState extends ConsumerState<HomeShell> {
-  int currentIndex = 0;
+  late int currentIndex;
+
+  @override
+  void initState() {
+    final currentStatePath = widget.state.path;
+    final index = homeRoutes.indexWhere((route) => route.path == currentStatePath);
+    currentIndex = index == -1 ? 0 : index; 
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authNotifier = ref.read(authProvider.notifier);
-
     return SafeArea(
       child: Scaffold(
         body: widget.child,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           landscapeLayout: .centered,
-          onTap: (value) => setState(() {
-            currentIndex = value;
-          }),
+          onTap: (value) {
+            if(currentIndex == value) return;
+            
+            setState(() => currentIndex = value);
+            RoutingService.instance.pushNamed(homeRoutes[value]);
+          },
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Chats'),
             BottomNavigationBarItem(icon: Icon(Icons.people), label: 'People'),
