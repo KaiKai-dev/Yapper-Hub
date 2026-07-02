@@ -3,4 +3,6 @@ class ApiRoutes {
   static const login = '/auth/login';
   static const verifyLogin = '/auth/verify-me';
   static const logout = '/auth/logout';
+
+  static const fetchConversations = '/conversations';
 }

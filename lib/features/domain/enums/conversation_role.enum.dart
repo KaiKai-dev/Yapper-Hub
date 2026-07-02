@@ -1,0 +1,3 @@
+enum ConversationRole {
+  member, admin,
+}
