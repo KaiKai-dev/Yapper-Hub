@@ -23,7 +23,7 @@ class AppRoute extends GoRoute {
   }) : super(
           path: screen.path!,
           name: screen.name,
-          routes: routes ?? [],
+          routes: (routes ?? []),
           pageBuilder: (_, _) => transition == null
               ? MaterialPage(child: child)
               : RoutingTransitionDelegate.slide(child: child, transition: transition),

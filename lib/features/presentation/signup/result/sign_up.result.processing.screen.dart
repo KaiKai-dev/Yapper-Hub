@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:chat_app/core/network/api_endpoints.dart';
+import 'package:chat_app/core/network/api_routes.dart';
 import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/features/data/providers/signup.provider.dart';

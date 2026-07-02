@@ -60,7 +60,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     RoutingService.instance.pushNamed(switch(ref.read(authProvider) == null) {
       true => .welcome,
-      false => .home,
+      false => .chats,
     });
   }
 }

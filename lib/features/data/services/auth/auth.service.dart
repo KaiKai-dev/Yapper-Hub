@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:chat_app/core/network/api_endpoints.dart';
+import 'package:chat_app/core/network/api_routes.dart';
 import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:chat_app/features/domain/models/auth_data/auth_data.model.dart';
