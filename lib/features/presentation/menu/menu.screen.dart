@@ -1,3 +1,4 @@
+import 'package:chat_app/core/widgets/ongoing_construction.widget.dart';
 import 'package:flutter/material.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -5,12 +6,6 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          "Menu",
-        )
-      ),
-    );
+    return OngoingConstructionWidget();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:chat_app/core/widgets/ongoing_construction.widget.dart';
 import 'package:flutter/material.dart';
 
 class PeopleScreen extends StatelessWidget {
@@ -5,13 +6,6 @@ class PeopleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Text("People Screen")
-          
-        ]
-      )
-    );
+    return OngoingConstructionWidget();
   }
 }
