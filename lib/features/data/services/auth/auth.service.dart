@@ -18,20 +18,33 @@ class AuthService {
 
     if (stored == null) return null;
 
-    final response = await HttpService.instance.get(
-      ApiRoutes.verifyLogin,
-      bearer: stored,
-    );
+    try {
+      final response = await HttpService.instance.get(
+        ApiRoutes.verifyLogin,
+        bearer: stored,
+      );
 
-    final authData = AuthData.fromJson(response);
-    log(authData.toString());
-    return authData;
+      if (response == null) return null;
+
+      final authData = AuthData.fromJson(response);
+      log(authData.toString());
+      return authData;
+    } catch (_) {
+      // Token expired or invalid — treat as no session
+      await StorageService.instance.secureDelete('token');
+      await StorageService.instance.secureDelete('userProfile');
+      return null;
+    }
   }
 
   Future<Map<String, dynamic>> login({
     required Map<String, dynamic> data,
   }) async => await HttpService.instance.post(ApiRoutes.login, data: data);
 
-  Future<void> logout(String token) async =>
-      await HttpService.instance.post(ApiRoutes.logout, bearer: token);
+  Future<void> logout(String token) async {
+    await HttpService.instance.post(ApiRoutes.logout, bearer: token);
+
+    await StorageService.instance.secureDelete('token');
+    await StorageService.instance.secureDelete('userProfile');
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:chat_app/features/data/services/auth/auth.service.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';
@@ -37,9 +38,6 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> logout() async {
     if(state == null) return;
     await AuthService().logout(state!.token!);
-
-    StorageService.instance.secureDelete('token');
-    StorageService.instance.secureDelete('userProfile');
 
     state = null;
   }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:chat_app/core/env/env.dart';
+import 'package:chat_app/core/network/interceptors/auth.interceptor.dart';
 import 'package:dio/dio.dart';
 
 
@@ -14,9 +15,11 @@ class HttpService {
     final baseOptions = BaseOptions(
       baseUrl: Env.apiUrl,
       connectTimeout: Duration(seconds: 20),
-        
+      
     );
     _client = Dio(baseOptions);
+
+    _client.interceptors.add(AppInterceptor());
   }
 
 
@@ -37,9 +40,8 @@ class HttpService {
       // if(result.statusCode == 200){
         return result.data as T;
       // }
-    } on DioException catch(e) {
-      //Todo implement DioException handling
-      throw UnimplementedError("DioException: ${e.message}");
+    // } on DioException catch(e) {
+    //   throw UnimplementedError("DioException: ${e.message}");
     } catch (e) {
       log(e.toString());
       throw UnimplementedError("$e" );
@@ -59,8 +61,6 @@ class HttpService {
           bearerToken: bearer,
         ),
       );
-      
-      
 
       final result = await _client.get(
         route,
@@ -69,15 +69,7 @@ class HttpService {
         options: options,
       );
 
-      if(result.statusCode == 200) {
-        return result.data;
-      } else {  
-        throw DioException(requestOptions: RequestOptions(
-          path: route, 
-          data: data, 
-          baseUrl: _client.options.baseUrl
-        ));
-      }
+      return result.data;
     } catch (e) {
       // TODO: add an exception wrapper for all exceptions
       // log(e as String);
