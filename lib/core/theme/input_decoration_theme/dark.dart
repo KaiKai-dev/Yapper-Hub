@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 final darkInputDecorationTheme = InputDecorationThemeData(
   filled: true,
-  fillColor: DarkConstants.neutral200,
+  fillColor: DarkConstants.neutral300,
   hintStyle: ChatAppTextTheme.dark.bodyMedium!
     .copyWith(color: DarkConstants.neutral800),
   contentPadding: EdgeInsets.symmetric(

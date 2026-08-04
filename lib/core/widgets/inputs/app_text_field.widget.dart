@@ -12,6 +12,7 @@ class AppTextField extends StatefulWidget {
   final Widget? prefix;
   final Widget? suffix;
   final Widget? counter;
+  final Color? fillColor;
   final void Function(String)? onChanged;
 
   const AppTextField({
@@ -25,6 +26,7 @@ class AppTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.counter,
+    this.fillColor,
   });
 
   const AppTextField.required({
@@ -37,6 +39,7 @@ class AppTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.counter,
+    this.fillColor,
   }) : validator = Validator.required;
 
   const AppTextField.requiredWithLength({
@@ -49,6 +52,7 @@ class AppTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.counter,
+    this.fillColor,
   }) : validator = Validator.requiredWithMaxMinLength;
 
   const AppTextField.password({
@@ -60,6 +64,7 @@ class AppTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.counter,
+    this.fillColor,
   }): type = InputType.password,
       validator = Validator.password;
 
@@ -78,7 +83,6 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-     
     final textTheme = context.theme.textTheme;
 
     return Column(
@@ -102,7 +106,11 @@ class _AppTextFieldState extends State<AppTextField> {
           onTapOutside: (_) => FocusManager.instance.primaryFocus!.unfocus(),
           decoration: InputDecoration(
             hintText: widget.hintText,
-            prefix: widget.prefix,
+            prefixIcon: widget.prefix != null 
+              ? Padding(
+                padding: const EdgeInsets.only(left: 20, right: 10),
+                child: widget.prefix,
+              ) : null,
             suffixIcon: widget.type != InputType.password
               ? widget.suffix
               : GestureDetector(

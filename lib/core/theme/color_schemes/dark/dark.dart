@@ -39,7 +39,7 @@ class DarkConstants {
   static final neutral50 = Color(0xFF000000); // Background
   static final neutral100 = Color(0xFF080808); // Surface (Cards)
   static final neutral200 = Color.fromARGB(255, 22, 22, 22); // Surface Variant (Search)
-  static final neutral300 = Color(0xFF474747);
+  static final neutral300 = Color.fromARGB(255, 35, 35, 35);
   static final neutral400 = Color(0xFF5E5E5E);
   static final neutral500 = Color(0xFF777777);
   static final neutral600 = Color(0xFF919191);
@@ -73,7 +73,8 @@ class DarkConstants {
     surface: neutral100,            // The #000000 background
     onSurface: neutral900, 
     surfaceDim: neutral500,          // High-contrast text
-    surfaceContainer: neutral200,    // The cards/containers
+    surfaceContainer: neutral200,
+    surfaceContainerHigh: neutral300,    // The cards/containers
     onSurfaceVariant: neutral900 // Search bar / elevated elements
   );
 }

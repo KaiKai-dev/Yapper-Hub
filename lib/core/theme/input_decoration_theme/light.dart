@@ -6,7 +6,7 @@ final lightDecorationtheme = InputDecorationThemeData(
   filled: true,
   fillColor: LightConstants.neutral50,
   hintStyle: ChatAppTextTheme.light.bodyMedium!
-    .apply(color: LightConstants.neutral200),
+    .apply(color: LightConstants.neutral400),
   contentPadding: EdgeInsets.symmetric(
     vertical: 20,
     horizontal: 20
@@ -37,7 +37,6 @@ final lightDecorationtheme = InputDecorationThemeData(
     borderRadius: BorderRadius.circular(32),
     borderSide: BorderSide(
       color: LightConstants.error600,
-      
     )
   ),
   errorStyle: ChatAppTextTheme.light.labelMedium!
