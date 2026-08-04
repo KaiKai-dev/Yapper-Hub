@@ -5,4 +5,10 @@ class ApiRoutes {
   static const logout = '/auth/logout';
 
   static const fetchConversations = '/conversations';
+
+  List<String> get nonTokenRequests => [
+    signup, login,
+  ];
+
+  
 }

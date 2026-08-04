@@ -1,9 +1,11 @@
 import 'package:chat_app/core/network/http_service.dart';
+import 'package:chat_app/core/providers_container.dart';
 import 'package:chat_app/core/theme/theme.provider.dart';
 import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +14,11 @@ void main() async {
   HttpService.instance.init();
   await StorageService.instance.init();
 
+  appContainer = ProviderContainer();
+
   runApp(
-    ProviderScope(
+    UncontrolledProviderScope(
+      container: appContainer,
       child: ChatApp()
     )
   );
@@ -39,10 +44,12 @@ class _ChatAppState extends ConsumerState<ChatApp> {
     // final routing = ref.watch(routingProvider);
     final themeData = ref.watch(themeProvider);
 
-    return MaterialApp.router( 
-      title: "Chat App",
-      theme: themeData,
-      routerConfig: RoutingService.instance.router,
+    return ToastificationWrapper(
+      child: MaterialApp.router( 
+        title: "Chat App",
+        theme: themeData,
+        routerConfig: RoutingService.instance.router,
+      ),
     );
   }
 }

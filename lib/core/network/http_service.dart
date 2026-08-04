@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:chat_app/core/env/env.dart';
+import 'package:chat_app/core/network/interceptors/auth.interceptor.dart';
 import 'package:dio/dio.dart';
 
 
@@ -14,9 +15,11 @@ class HttpService {
     final baseOptions = BaseOptions(
       baseUrl: Env.apiUrl,
       connectTimeout: Duration(seconds: 20),
-        
+      
     );
     _client = Dio(baseOptions);
+
+    _client.interceptors.add(AppInterceptor());
   }
 
 
@@ -26,24 +29,12 @@ class HttpService {
     Map<String, dynamic>? headers,
     String? bearer,
   }) async {
-    
-    try {
-      final options = Options(
-        headers: _buildHeader(bearerToken: bearer, options: headers),
-      );
+    final options = Options(
+      headers: _buildHeader(bearerToken: bearer, options: headers),
+    );
 
-      final result = await _client.post(route, data: data, options: options);
-// 
-      // if(result.statusCode == 200){
-        return result.data as T;
-      // }
-    } on DioException catch(e) {
-      //Todo implement DioException handling
-      throw UnimplementedError("DioException: ${e.message}");
-    } catch (e) {
-      log(e.toString());
-      throw UnimplementedError("$e" );
-    }
+    final result = await _client.post(route, data: data, options: options);
+      return result.data as T;
   } 
 
   Future<T?> get<T>(
@@ -53,36 +44,20 @@ class HttpService {
       Map<String, dynamic>? data,
       String? bearer,
   }) async {
-    try {
-      final options = Options(
-        headers: _buildHeader(
-          bearerToken: bearer,
-        ),
-      );
-      
-      
+    final options = Options(
+      headers: _buildHeader(
+        bearerToken: bearer,
+      ),
+    );
 
-      final result = await _client.get(
-        route,
-        queryParameters: queries,
-        data: data,
-        options: options,
-      );
+    final result = await _client.get(
+      route,
+      queryParameters: queries,
+      data: data,
+      options: options,
+    );
 
-      if(result.statusCode == 200) {
-        return result.data;
-      } else {  
-        throw DioException(requestOptions: RequestOptions(
-          path: route, 
-          data: data, 
-          baseUrl: _client.options.baseUrl
-        ));
-      }
-    } catch (e) {
-      // TODO: add an exception wrapper for all exceptions
-      // log(e as String);
-      throw Exception(e);
-    }
+    return result.data;
   }
 
   Map<String, dynamic> _buildHeader({

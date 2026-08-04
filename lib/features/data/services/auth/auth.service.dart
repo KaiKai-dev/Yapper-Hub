@@ -23,15 +23,30 @@ class AuthService {
       bearer: stored,
     );
 
+    if (response == null) return null;
+
     final authData = AuthData.fromJson(response);
     log(authData.toString());
     return authData;
+
   }
 
   Future<Map<String, dynamic>> login({
     required Map<String, dynamic> data,
   }) async => await HttpService.instance.post(ApiRoutes.login, data: data);
 
-  Future<void> logout(String token) async =>
+  Future<void> logout(String token) async {
+    try {
       await HttpService.instance.post(ApiRoutes.logout, bearer: token);
+    } catch (e) {
+      log("Logout API call ignored (session might already be expired): $e");
+    }
+
+    await StorageService.instance.secureDelete('token');
+    await StorageService.instance.secureDelete('userProfile');
+  }
+
+  // Future<void> logout({
+
+  // })
 }

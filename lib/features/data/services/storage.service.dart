@@ -40,8 +40,8 @@ class StorageService {
       await _secureStorage!.write(key: key, value: value);
 
   /// Delete Functions
-  void delete(String key) => _storage!.remove(key);
-  void secureDelete(String key) => _secureStorage!.delete(key: key);
+  Future<bool> delete(String key) async => await _storage!.remove(key);
+  Future<void> secureDelete(String key) async => await _secureStorage!.delete(key: key);
 
   /// Reset Functions
   void reset() => _storage!.clear();
