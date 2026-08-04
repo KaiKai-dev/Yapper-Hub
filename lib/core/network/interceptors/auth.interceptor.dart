@@ -55,6 +55,7 @@ class AppInterceptor extends Interceptor {
         title: const Text("Login Session Expired"),
         description: const Text("Login again to continue Yapping"),
         autoCloseDuration: const Duration(seconds: 5),
+        alignment: .bottomCenter
       );
 
       return handler.next(err);
