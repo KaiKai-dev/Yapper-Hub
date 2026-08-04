@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:chat_app/features/data/services/auth/auth.service.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';

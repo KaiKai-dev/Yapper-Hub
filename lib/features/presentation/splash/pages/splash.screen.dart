@@ -1,7 +1,6 @@
 
 import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
-import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';

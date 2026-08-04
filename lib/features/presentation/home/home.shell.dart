@@ -1,9 +1,5 @@
-import 'dart:developer';
 
-import 'package:chat_app/core/routing/routing.service.dart';
 import 'package:chat_app/features/data/constants/home.routes.dart';
-import 'package:chat_app/features/data/providers/auth_provider/auth.provider.dart';
-import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:chat_app/features/presentation/chats/chats.screen.dart';
 import 'package:chat_app/features/presentation/menu/menu.screen.dart';
 import 'package:chat_app/features/presentation/people/people.screen.dart';

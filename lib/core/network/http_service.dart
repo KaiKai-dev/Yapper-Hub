@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chat_app/core/env/env.dart';
 import 'package:chat_app/core/network/interceptors/auth.interceptor.dart';
 import 'package:dio/dio.dart';
