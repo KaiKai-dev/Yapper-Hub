@@ -30,7 +30,6 @@ final lightDecorationtheme = InputDecorationThemeData(
     borderRadius: BorderRadius.circular(32),
     borderSide: BorderSide(
       color: LightConstants.error600,
-      
     )
   ),
   focusedErrorBorder: OutlineInputBorder(

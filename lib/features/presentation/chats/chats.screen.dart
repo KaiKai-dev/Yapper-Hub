@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:chat_app/core/network/api_routes.dart';
+import 'package:chat_app/core/network/http_service.dart';
 import 'package:chat_app/core/theme/theme.provider.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:chat_app/features/domain/extensions/build_context.dart';
@@ -59,22 +63,35 @@ class _ChatsScreenState extends ConsumerState<ChatsScreen> {
                     Column(
                       spacing: 12,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: context.theme.inputDecorationTheme.hintStyle!.color!,
-                            borderRadius: BorderRadius.circular(100)
-                          ),
-                          child: DottedBorder(
-                            options: RoundedRectDottedBorderOptions(
-                              strokeWidth: 1.25,
-                              radius: Radius.circular(100),
-                              padding: EdgeInsets.all(20),
-                              color: context.theme.colorScheme.onSurface,
-                              dashPattern: [6, 2],
+                        InkWell(
+                          onTap: () async {
+                            final result = await HttpService.instance.get(
+                              ApiRoutes.getProfile(id: 1),
+                              queries: {
+                                "id": 1
+                              }
+                            );
+
+                            log(result.toString());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: context.theme.inputDecorationTheme.enabledBorder!.borderSide.color,
+                              borderRadius: BorderRadius.circular(100)
                             ),
-                            child: Icon(
-                              Icons.add
-                            )
+                            child: DottedBorder(
+                              options: RoundedRectDottedBorderOptions(
+                                strokeWidth: 1.25,
+                                radius: Radius.circular(100),
+                                padding: EdgeInsets.all(20),
+                                color: context.theme.inputDecorationTheme.hintStyle!.color!,
+                                dashPattern: [4, 2],
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                // color: context.theme.inputDecorationTheme.hintStyle!.color!,
+                              )
+                            ),
                           ),
                         ),
                         Text(

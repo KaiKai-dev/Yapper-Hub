@@ -50,11 +50,12 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       child: Scaffold(
         body: PageView(
           controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
           onPageChanged: (index) => setState(() => _currentIndex = index),
           children: const [
             ChatsScreen(),
             PeopleScreen(),
-            MenuScreen()
+            MenuScreen(),
           ]
         ),
         bottomNavigationBar: BottomNavigationBar(

@@ -6,6 +6,11 @@ class ApiRoutes {
 
   static const fetchConversations = '/conversations';
 
+  static String getProfile({int? id}) => switch(id != null) {
+    true => '/profile/$id',
+    false => '/profiles',
+  };
+
   List<String> get nonTokenRequests => [
     signup, login,
   ];
