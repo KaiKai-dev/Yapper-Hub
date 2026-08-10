@@ -1,3 +1,4 @@
+import 'package:chat_app/core/routing/routing.screens.enum.dart';
 import 'package:chat_app/core/widgets/app_button.widget.dart';
 import 'package:chat_app/core/widgets/inputs/app_text_field.widget.dart';
 import 'package:chat_app/core/routing/routing.service.dart';
@@ -126,6 +127,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
 
-    RoutingService.instance.pushNamed(.chats);
+    RoutingService.instance.router.replaceNamed(AppScreens.chats.name);
   }
 }
