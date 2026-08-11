@@ -44,7 +44,7 @@ class HttpService {
   }) async {
     final options = Options(
       headers: _buildHeader(
-        // bearerToken: bearer,
+        bearerToken: bearer,
       ),
     );
 

@@ -25,7 +25,6 @@ class AuthNotifier extends _$AuthNotifier {
       data: data
     );
 
-
     final authData = AuthData.fromJson(response);
 
     StorageService.instance.secureStore('token', authData.token!);

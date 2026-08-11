@@ -11,7 +11,7 @@ class DefaultStoryAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Column(  
       spacing: 12,
       children: [
         InkWell(
@@ -31,7 +31,6 @@ class DefaultStoryAvatar extends StatelessWidget {
               ),
               child: Icon(
                 Icons.add,
-                // color: context.theme.inputDecorationTheme.hintStyle!.color!,
               )
             ),
           ),

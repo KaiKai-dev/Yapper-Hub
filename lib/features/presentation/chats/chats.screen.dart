@@ -8,6 +8,8 @@ import 'package:chat_app/features/domain/extensions/build_context.dart';
 import 'package:chat_app/features/domain/models/user_profile/user_profile.model.dart';
 import 'package:chat_app/features/presentation/chats/components/default_story_avatar.widget.dart';
 import 'package:chat_app/features/presentation/chats/components/story_avatar.widget.dart';
+import 'package:chat_app/features/presentation/chats/sections/conversations.section.dart';
+import 'package:chat_app/features/presentation/chats/sections/stories.section.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,52 +53,22 @@ class _ChatsScreenState extends ConsumerState<ChatsScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            spacing: 16,
-            children: [
-              AppTextField(
+        child: Column(
+          spacing: 16,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: AppTextField(
                 hintText: "Search Conversations",
                 prefix: Icon(
                   Icons.search
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: .horizontal,
-                child: Row(
-                  spacing: 12,
-                  children: [
-                    DefaultStoryAvatar(
-                      onTap: () async {
-                        final id = test.length + 1;
-                        final result = await HttpService.instance.get(
-                          ApiRoutes.getProfile(id: id),
-                          // queries: {
-                          //   "id": id
-                          // }
-                        );
+            ),
 
-                        setState(() {
-                          test.add(UserProfile.fromJson(result['profile']));
-                        });
-
-                        print(test);
-
-                        log(result.toString());
-                      }
-                    ),
-                    
-                    if(test.isNotEmpty)
-                      ...List.generate(
-                        test.length, (index){
-                          return StoryAvatar(data: test[index]);
-                        })
-                  ],
-                ),
-              )
-            ],
-          ),
+            StoriesSection(),
+            ConversationsSection()
+          ],
         ),
       ),
     );
