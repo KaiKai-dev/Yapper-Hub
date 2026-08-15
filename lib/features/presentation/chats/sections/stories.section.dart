@@ -30,16 +30,19 @@ class _StoriesSectionState extends State<StoriesSection> {
             children: [
               DefaultStoryAvatar(
                 onTap: () async {
-                  final id = test.length + 1;
+                  log(ApiRoutes.getProfile());
                   final result = await HttpService.instance.get(
-                    ApiRoutes.getProfile(id: id),
+                    ApiRoutes.getProfile(),
                     // queries: {
                     //   "id": id
                     // }
                   );
 
+                  List<dynamic> profilesResult = result["profiles"];
+                  List<UserProfile> profiles = profilesResult.map((e) => UserProfile.fromJson(e),).toList();
+
                   setState(() {
-                    test.add(UserProfile.fromJson(result['profile']));
+                    test = profiles;
                   });
 
                   print(test);

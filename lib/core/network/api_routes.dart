@@ -8,7 +8,7 @@ class ApiRoutes {
 
   static String getProfile({int? id}) => switch(id != null) {
     true => '/profile/$id',
-    false => '/profiles',
+    false => '/profile/all',
   };
 
   List<String> get nonTokenRequests => [
