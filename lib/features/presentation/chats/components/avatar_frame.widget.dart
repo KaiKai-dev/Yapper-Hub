@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AvatarFrame extends StatelessWidget {
-  final String url;
+  final String? url;
   final double size;
   const AvatarFrame({
     required this.url,
@@ -17,7 +17,10 @@ class AvatarFrame extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: CachedNetworkImage(imageUrl: url, fit: .fill,),
+        child: switch(url){
+          null => Image.asset("assets/app_icons/defaultpfp.jpeg", fit: .fill,),
+          _ => CachedNetworkImage(imageUrl: url ?? "", fit: .fill,),
+        }
       ),
     );
     // return Container(

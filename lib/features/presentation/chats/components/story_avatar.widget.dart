@@ -17,7 +17,7 @@ class StoryAvatar extends StatelessWidget {
     return Column(
       spacing: 12,
       children: [
-        AvatarFrame(url: data.avatarUrl!, size: 60,),
+        AvatarFrame(url: data.avatarUrl, size: 60,),
         Text(
           data.firstname,
           style: context.theme.textTheme.bodySmall,
