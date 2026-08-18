@@ -29,37 +29,51 @@ class _StoriesSectionState extends State<StoriesSection> {
             spacing: 12,
             children: [
               DefaultStoryAvatar(
-                onTap: () async {
-                  log(ApiRoutes.getProfile());
-                  final result = await HttpService.instance.get(
-                    ApiRoutes.getProfile(),
-                    // queries: {
-                    //   "id": id
-                    // }
-                  );
-
-                  List<dynamic> profilesResult = result["profiles"];
-                  List<UserProfile> profiles = profilesResult.map((e) => UserProfile.fromJson(e),).toList();
-
-                  setState(() {
-                    test = profiles;
-                  });
-
-                  print(test);
-
-                  log(result.toString());
-                }
+                onTap: fetchConversations
               ),
 
               if(test.isNotEmpty)
-                      ...List.generate(
-                        test.length, (index){
-                          return StoryAvatar(data: test[index]);
-                        })
+                ...List.generate(
+                  test.length, (index){
+                    return StoryAvatar(data: test[index]);
+                  })
             ],
           ),
         ),
       ),
     );
+  }
+
+  void fetchUserProfiles () async {
+    log(ApiRoutes.getProfile());
+    final result = await HttpService.instance.get(
+      ApiRoutes.getProfile(),
+      // queries: {
+      //   "id": id
+      // }
+    );
+
+    List<dynamic> profilesResult = result["profiles"];
+    List<UserProfile> profiles = profilesResult.map((e) => UserProfile.fromJson(e),).toList();
+
+    setState(() {
+      test = profiles;
+    });
+
+    print(test);
+
+    log(result.toString());
+  }
+
+  void fetchConversations() async {
+    final result = await HttpService.instance.get(
+      ApiRoutes.fetchConversations,
+      queries: {
+        "per_page": 1,
+        "sort": "asc"
+      }
+    );
+
+    log(result.toString());
   }
 }
