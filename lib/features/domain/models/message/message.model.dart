@@ -9,7 +9,7 @@ abstract class Message with _$Message {
 
   const factory Message({
     required int id,
-    @JsonKey(name: "converstion_id") required int conversationId,
+    @JsonKey(name: "conversation_id") required int conversationId,
     @JsonKey(name: "user_id") required int senderId,
     required String body, 
   }) = _Message;
