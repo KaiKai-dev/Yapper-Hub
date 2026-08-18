@@ -11,6 +11,8 @@ abstract class Conversation with _$Conversation {
   const factory Conversation({
     required int id,
     List<Message>? messages,
+    @JsonKey(name: "is_group") required bool isGroup,
+    @JsonKey(name: 'avatar') String? avatarUrl,
     @JsonKey(name: 'conversation_users') required List<ConversationUser> users,
 
   }) = _Conversation;
