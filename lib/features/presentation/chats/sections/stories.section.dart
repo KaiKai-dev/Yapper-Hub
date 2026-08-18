@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:chat_app/core/network/api_routes.dart';
 import 'package:chat_app/core/network/http_service.dart';
+import 'package:chat_app/features/domain/models/conversation/conversation.model.dart';
 import 'package:chat_app/features/domain/models/user_profile/user_profile.model.dart';
 import 'package:chat_app/features/presentation/chats/components/default_story_avatar.widget.dart';
 import 'package:chat_app/features/presentation/chats/components/story_avatar.widget.dart';
@@ -74,6 +76,13 @@ class _StoriesSectionState extends State<StoriesSection> {
       }
     );
 
-    log(result.toString());
+    final conversationsData = result["conversations"]["data"] as List;
+    log(conversationsData.toString());
+
+    final conversations = conversationsData.map(
+      (json) => Conversation.fromJson(json as Map<String, dynamic>)
+    ).toList();
+
+    log(conversations.runtimeType.toString());
   }
 }
