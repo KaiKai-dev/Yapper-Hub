@@ -4,7 +4,7 @@ class ApiRoutes {
   static const verifyLogin = '/auth/verify-me';
   static const logout = '/auth/logout';
 
-  static const fetchConversations = '/conversations';
+  static const fetchConversations = '/conversations/index';
 
   static String getProfile({int? id}) => switch(id != null) {
     true => '/profile/$id',

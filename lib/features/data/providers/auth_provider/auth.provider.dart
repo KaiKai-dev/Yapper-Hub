@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chat_app/features/data/services/auth/auth.service.dart';
+import 'package:chat_app/features/data/services/auth.service.dart';
 import 'package:chat_app/features/data/services/storage.service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:chat_app/features/domain/models/auth_data/auth_data.model.dart';
@@ -28,7 +28,7 @@ class AuthNotifier extends _$AuthNotifier {
     final authData = AuthData.fromJson(response);
 
     StorageService.instance.secureStore('token', authData.token!);
-    StorageService.instance.secureStore('userProfile', jsonEncode(authData.profile.toJson()));
+    StorageService.instance.secureStore('userProfile', jsonEncode(authData.user.toJson()));
 
     state = authData;
   }
